@@ -1,0 +1,17 @@
+{% extends 'wor/base.html' %}
+
+{% block content %}
+
+<h2>{{ chestplate.name }}</h2>
+
+<ul>
+ <li>Main Stat : {{ chestplate.main_stat }}</li>
+ <li>second_stat : {{ chestplate.second_stat }}</li>
+ <li>third_stat : {{ chestplate.third_stat }}</li>
+ <li>fourth_stat: {{ chestplate.fourth_stat }}</li>
+</ul>
+
+<a href="{% url 'wor:show_chestplate_url' %}">Return to chestplates list</a>
+
+
+{% endblock %}

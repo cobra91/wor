@@ -1,0 +1,14 @@
+{% extends 'wor/base.html' %}
+
+{% block title %}
+    <title>Confirmation Page</title>
+{% endblock %}
+
+{% block content %}
+    <form class="jumbotron" action="" method="post">
+        {% csrf_token %}
+        <h2>Are you sure you want to delete this data? </h2>
+        <input type="submit" value="Yes" class="btn btn-danger">
+        <button class="btn btn-success"><a href="{% url 'wor:show_chestplate_url' %}">No</a></button>
+    </form>
+{% endblock %}

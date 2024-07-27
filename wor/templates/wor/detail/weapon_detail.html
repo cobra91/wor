@@ -1,0 +1,17 @@
+{% extends 'wor/base.html' %}
+
+{% block content %}
+
+<h2>{{ weapon.name }}</h2>
+
+<ul>
+ <li>Main Stat : {{ weapon.main_stat }}</li>
+ <li>second_stat : {{ weapon.second_stat }}</li>
+ <li>third_stat : {{ weapon.third_stat }}</li>
+ <li>fourth_stat: {{ weapon.fourth_stat }}</li>
+</ul>
+
+<a href="{% url 'wor:show_weapon_url' %}">Return to weapons list</a>
+
+
+{% endblock %}

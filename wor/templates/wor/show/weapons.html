@@ -1,0 +1,49 @@
+{% extends 'wor/base.html' %}
+
+{% block title %}
+   <title>Show Page</title>
+{% endblock %}
+
+{% block content %}
+<center><h1>Show Weapons</h1></center>
+<table class="table">
+   <thead>
+     <tr>
+       <th scope="col">Main stat</th>
+       <th scope="col">Main Stat Value</th>
+       <th scope="col">First Stat</th>
+       <th scope="col">First Stat Value</th>
+       <th scope="col">Second Stat</th>
+       <th scope="col">Second Stat Value</th>
+       <th scope="col">Third Stat</th>
+       <th scope="col">Third Stat Value</th>
+       <th scope="col">Fourth Stat</th>
+       <th scope="col">Fourth Stat Value</th>
+       <th scope="col">Set Name</th>
+         <th scope="col">Set Bonus</th>
+     </tr>
+   </thead>
+   <tbody>
+   {% for weapon in weapons %}
+     <tr>
+        <td><a href="{% url 'wor:weapon-detail' weapon.id %}">{{weapon.main_stat}}</a></td>
+        <td>{{weapon.main_stat_value}}</td>
+        <td>{{weapon.first_stat}}</td>
+        <td>{{weapon.first_stat_value}}</td>
+        <td>{{weapon.second_stat}}</td>
+        <td>{{weapon.second_stat_value}}</td>
+        <td>{{weapon.third_stat}}</td>
+        <td>{{weapon.third_stat_value}}</td>
+        <td>{{weapon.fourth_stat}}</td>
+        <td>{{weapon.fourth_stat_value}}</td>
+        <td>{{weapon.set_name}}</td>
+        <td>{{weapon.set_bonus}}</td>
+       <td>
+           <button class="btn btn-warning"><a href="{% url 'wor:update_weapon_url' weapon.id %}">Update</a></button>&nbsp;&nbsp;
+           <button class="btn btn-danger"><a href="{% url 'wor:delete_weapon_url' weapon.id %}">Delete</a></button>
+       </td>
+     </tr>
+   {% endfor %}
+   </tbody>
+ </table>
+{% endblock %}

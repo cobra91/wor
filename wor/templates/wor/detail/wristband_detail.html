@@ -1,0 +1,17 @@
+{% extends 'wor/base.html' %}
+
+{% block content %}
+
+<h2>{{ wristband.name }}</h2>
+
+<ul>
+ <li>Main Stat : {{ wristband.main_stat }}</li>
+ <li>second_stat : {{ wristband.second_stat }}</li>
+ <li>third_stat : {{ wristband.third_stat }}</li>
+ <li>fourth_stat: {{ wristband.fourth_stat }}</li>
+</ul>
+
+<a href="{% url 'wor:show_wristband_url' %}">Return to wristbands list</a>
+
+
+{% endblock %}

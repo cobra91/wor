@@ -1,0 +1,146 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+# lib name in pypi
+name="wor"
+# description
+description="wor is django project"
+# author mails:
+authors = [
+    { name="LECOMTE Damien", email="cobra91310@gmail.com" },
+]
+requires-python = ">=3.12"
+# License type. Needed only if not mentioned in "classifiers"
+license = {text = """"""}
+classifiers = [
+    "Programming Language :: Python :: 3.12",
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Natural Language :: English",
+    "Natural Language :: French",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Database",
+    "Topic :: Software Development",
+]
+version = "1.0"
+dynamic = ["readme", "dependencies", "optional-dependencies"]
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements.txt"]}
+optional-dependencies = {dev = { file = ["requirements_ci.txt"] }}
+readme = {file = ["README.md"]}
+
+[tool.black]
+skip-string-normalization = true
+line-length = 120
+
+
+[tool.mypy]
+python_version = "3.11"
+
+# this is de-facto the linter setting for this file
+warn_unused_configs = true
+
+# We should either upgrade the used packages to a version which includes type hints OR install/write stub packages for these libraries.
+# Further details here: https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-type-hints-for-third-party-library
+ignore_missing_imports = true
+
+# ignore the [no-redef] errors, as they collide with the bandit "# nosec" exclusion (common.py)
+# unfortunately both tools expect their ignore flag as a comment in the same line
+# [misc] is ignored for the "incompatible import"
+# [arg-type] is ignored because when there are missing envs, everything will crash, not just the types
+disable_error_code = "no-redef, misc, arg-type"
+
+plugins = "pydantic.mypy"
+
+exclude = '''(?x)(
+    build/
+    | venv/
+    | .git/
+    | .idea/
+    | .mypy_cache/
+    | .dist/
+    | .docs/
+    | egg-info$/
+)'''
+
+
+[tool.pylint.main]
+# Use multiple processes to speed up Pylint. Specifying 0 will auto-detect the
+# number of processors available to use, and will cap the count on Windows to
+# avoid hangs.
+jobs = 0
+
+# See:
+# https://github.com/samuelcolvin/pydantic/issues/992#issuecomment-553545180
+# http://pylint.pycqa.org/en/latest/technical_reference/c_extensions.html
+extension-pkg-allow-list = "pydantic"
+
+# Minimum Python version to use for version dependent checks. Will default to the
+# version used to run pylint.
+py-version = "3.11"
+
+[tool.pylint.basic]
+# Good variable names which should always be accepted, separated by a comma.
+good-names = ["i", "j", "k"]
+
+[tool.pylint."MESSAGES CONTROL"]
+# Only show warnings with the listed confidence levels. Leave empty to show all.
+# Valid levels: HIGH, CONTROL_FLOW, INFERENCE, INFERENCE_FAILURE, UNDEFINED.
+confidence = ''
+
+# Disable the message, report, category or checker with the given id(s).
+# You can either give multiple identifiers separated by comma (,) or put this option multiple times
+# (only on the command line, not in the configuration file where it should appear only once).
+# You can also use "--disable=all" to disable everything first and then re-enable
+# specific checks. For example, if you want to run only the similarities checker, you can use "--disable=all
+#--enable=similarities". If you want to run only the classes checker, but have no Warning level messages displayed,
+# use "--disable=all --enable=classes --disable=W".
+
+disable = [
+    "logging-fstring-interpolation", # https://github.com/PyCQA/pylint/issues/2395
+    "too-few-public-methods",
+    "too-many-ancestors",
+    "too-many-arguments",
+    "too-many-instance-attributes",
+    "too-many-locals",
+    "too-many-public-methods",
+    "invalid-name",
+    "no-else-return",
+    "no-else-continue"
+]
+
+[tool.pylint.miscellaneous]
+# List of note tags to take in consideration, separated by a comma.
+notes = ["FIXME", "XXX"]
+
+[tool.pylint.refactoring]
+# Maximum number of nested blocks for function / method body
+max-nested-blocks = 5
+
+[tool.pylint.format]
+# Maximum number of characters on a single line.
+max-line-length = 120
+
+[tool.pylint.reports]
+# Set the output format. Available formats are text, parseable, colorized, json
+# and msvs (visual studio). You can also give a reporter class, e.g.
+# mypackage.mymodule.MyReporterClass.
+output-format = "colorized"
+# Activate the evaluation score.
+score = 'yes'
+
+
+[tool.isort]
+balanced_wrapping = true
+line_length = 120
+multi_line_output = 3
+include_trailing_comma = true
+sections = "FUTURE,STDLIB,THIRDPARTY,FIRSTPARTY,LOCALFOLDER"
+skip_glob = "venv,.venv"
+profile = "black"
+use_parentheses = true
+force_grid_wrap = 0
+ensure_newline_before_comments = true

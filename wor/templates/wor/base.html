@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">>
+    <head>
+        <meta charset='utf-8'>
+        <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+        {% block title %}
+        <title>Wor</title>
+        {% endblock %}
+        {% load static %}
+        <meta name='viewport' content='width=device-width, initial-scale=1'>
+        <link rel="stylesheet" href="{% static 'wor/style.css' %}">
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="/">Accueil</a>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'wor:weapon_url' %}">Add Weapon<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'wor:chestplate_url' %}">Add Chestplate<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'wor:wristband_url' %}">Add Wristband<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'wor:amulet_url' %}">Add Amulet<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'wor:ring_url' %}">Add Rings<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'wor:show_weapon_url' %}">Show Weapons</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'wor:show_chestplate_url' %}">Show Chestplates</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'wor:show_wristband_url' %}">Show Wristbands</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'wor:show_amulet_url' %}">Show Amulets</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'wor:show_ring_url' %}">Show Rings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'wor:show_character_url' %}">Show Characters</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+       {% block content %}
+       {% endblock %}
+    </body>
+</html>

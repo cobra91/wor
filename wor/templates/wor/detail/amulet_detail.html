@@ -1,0 +1,17 @@
+{% extends 'wor/base.html' %}
+
+{% block content %}
+
+<h2>{{ amulet.name }}</h2>
+
+<ul>
+ <li>Main Stat : {{ amulet.main_stat }}</li>
+ <li>second_stat : {{ amulet.second_stat }}</li>
+ <li>third_stat : {{ amulet.third_stat }}</li>
+ <li>fourth_stat: {{ amulet.fourth_stat }}</li>
+</ul>
+
+<a href="{% url 'wor:show_amulet_url' %}">Return to amulets list</a>
+
+
+{% endblock %}

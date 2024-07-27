@@ -1,0 +1,533 @@
+{% extends 'wor/base.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'wor/detail.css' %}">
+<div class="page-container container">
+   <div class="page-min">
+      <div>
+         <div class="hero-section">
+            <div class="hero-details">
+               <img class="rarity-banner" src="../../static/wor/images/banners/legendary-banner.png">
+               <div class="hero-header">
+                  <h1 class="hero-name">Valeriya</h1>
+                  <div style="display: flex;">
+                     <img class="faction-icon" src="../../static/wor/images/icons/factions/chaos-dominion.png">
+                     <img class="faction-icon" src="../../static/wor/images/icons/factions/nightmare.png">
+                  </div>
+               </div>
+               <div class="hero-info-section">
+                  <div class="hero-attack-info">
+                     <div class="hero-type">
+                        <div class="hero-info">
+                           <img class="type-icon" src="../../static/wor/images/icons/classes/fighter.png">fighter
+                        </div>
+                        <div class="hero-info">
+                           <img class="type-icon" src="../../static/wor/images/icons/damage-types/normal.png">normal
+                        </div>
+                     </div>
+                     <div class="attack-range-section">
+                        <div class="attack-range">
+                           <img class="attack-range-icon" src="../../static/wor/images/icons/attack-ranges/AttackRange_01.png">Base
+                        </div>
+                        <div class="attack-range">
+                           <img class="attack-range-icon" src="../../static/wor/images/icons/attack-ranges/AttackRange_06.png">Ultimate
+                        </div>
+                     </div>
+                  </div>
+                  <div class="hero-effects">
+                     <div>Status Effects</div>
+                     <div class="effects">
+                        <div>
+                           <img class="effect-icon" src="../../static/wor/images/icons/effects/pDmgVulnerability.png">
+                        </div>
+                        <div>
+                           <img class="effect-icon" src="../../static/wor/images/icons/effects/unyielding.png">
+                        </div>
+                     </div>
+                     <div>From Awakenings</div>
+                     <div class="no-data">-</div>
+                  </div>
+               </div>
+               <div class="hero-description">Following her buffs and new talent, Valeriya now provides an incredibly high amount of damage. It can be difficult to juggle her HP in long content such as Guild Boss - but if you're able to nail the timings she becomes lethal and incredibly competitive. Her undying state also makes her very usable in a lot of end-game content.</div>
+            </div>
+            <div class="hero-block">
+               <img class="hero-image" src="../../static/wor/../../static/wor/images/icons/heroes/busts/{{ character.name }}.png">
+               <div class="hero-stats">
+                  <table>
+                     <tr>
+                        <td>
+                           <img src="../../static/wor/images/icons/stats/hp.png">HP
+                        </td>
+                        <td>{{ character.health }}</td>
+                     </tr>
+                     <tr>
+                        <td>
+                           <img src="../../static/wor/images/icons/stats/attack.png">
+                           ATK
+                        </td>
+                        <td>
+                           {{ character.attack }}
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>
+                           <img src="../../static/wor/images/icons/stats/def.png"> DEF
+                        </td>
+                        <td>
+                           {{ character.defense }}
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>
+                           <img src="../../static/wor/images/icons/stats/mRes.png"> M. Res
+                        </td>
+                        <td>
+                           {{ character.magic_resistance }}
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>
+                           <img src="../../static/wor/images/icons/stats/cost.png"> Cost
+                        </td>
+                        <td>
+                           {{ character.cost }}
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>
+                           <img src="../../static/wor/images/icons/stats/block.png">Block
+                        </td>
+                        <td>
+                           {{ character.block }}
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>
+                           <img src="../../static/wor/images/icons/stats/revival-time.png">Revival Time
+                        </td>
+                        <td>
+                           {{ character.revival_time }}
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>
+                           <img src="../../static/wor/images/icons/stats/atk-interval.png">Attack Interval
+                        </td>
+                        <td>
+                           {{ character.attack_interval }}
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>
+                           <img src="../../static/wor/images/icons/stats/rage-regen-auto.png">Rage Regen A.
+                        </td>
+                        <td>
+                           {{ character.rage_regen_auto }}
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+         </div>
+         <div style="text-align:center">Total Attributes</div>
+         <br/>
+         <br/>
+         <table>
+            <tr>
+               <td width="300"></td>
+               <td width="150">Basic Attributes</td>
+               <td width="100">Gear</td>
+               <td width="100">Artifact</td>
+               <td width="150">Collection Progress</td>
+               <td width="100">In Total</td>
+            </tr>
+            <tr>
+               <td>
+                  <img src="../../static/wor/images/icons/stats/hp.png">HP
+               </td>
+               <td>{{ character.health }}</td>
+               <td>{{ character.hp_gear }}</td>
+               <td>0</td>
+               <td>0</td>
+               <td>{{ character.total_hp }}</td>
+            </tr>
+            <tr>
+               <td>
+                  <img src="../../static/wor/images/icons/stats/attack.png">ATK
+               </td>
+               <td>{{ character.attack }}</td>
+               <td>{{ character.atk_gear }}</td>
+               <td>0</td>
+               <td>0</td>
+               <td>{{ character.total_atk }}</td>
+            </tr>
+            <tr>
+               <td>
+                  <img src="../../static/wor/images/icons/stats/def.png">DEF
+               </td>
+               <td>{{ character.defense }}</td>
+               <td>{{ character.def_gear }}</td>
+               <td>0</td>
+               <td>0</td>
+               <td>{{ character.total_def }}</td>
+            </tr>
+            <tr>
+               <td>
+                  <img src="../../static/wor/images/icons/stats/mRes.png">M. RES.
+               </td>
+               <td>{{ character.mRes }}</td>
+               <td>{{ character.mRes_gear }}</td>
+               <td>0</td>
+               <td>0</td>
+               <td>{{ character.total_mRes }}</td>
+            </tr>
+            <tr>
+               <td>
+                  <img src="../../static/wor/images/icons/stats/cost.png">Cost
+               </td>
+               <td>{{ character.cost }}</td>
+               <td>{{ character.cost_gear }}</td>
+               <td>0</td>
+               <td>0</td>
+               <td>{{ character.total_cost }}</td>
+            </tr>
+            <tr>
+               <td>
+                  <img src="../../static/wor/images/icons/stats/block.png">Block
+               </td>
+               <td>{{ character.block }}</td>
+               <td>{{ character.block_gear }}</td>
+               <td>0</td>
+               <td>0</td>
+               <td>{{ character.total_block }}</td>
+            </tr>
+            <tr>
+               <td>
+                  <img src="../../static/wor/images/icons/stats/revival-time.png">Redeployment Time
+               </td>
+               <td>{{ character.revival_time }}</td>
+               <td>{{ character.revival_time_gear }}</td>
+               <td>0</td>
+               <td>0</td>
+               <td>{{ character.total_revival_time }}</td>
+            </tr>
+            <tr>
+               <td>
+                  <img src="../../static/wor/images/icons/stats/atk-interval.png">ATK Interval
+               </td>
+               <td>{{ character.attack_interval }}</td>
+               <td>{{ character.attack_interval_gear }}</td>
+               <td>0</td>
+               <td>0</td>
+               <td>{{ character.total_attack_interval }}</td>
+            </tr>
+            <tr>
+               <td>
+                  <img src="../../static/wor/images/icons/stats/atk-speed.png">ATK Spd.
+               </td>
+               <td>{{ character.attack_speed }}</td>
+               <td>{{ character.attack_speed_gear }}</td>
+               <td>0</td>
+               <td>0</td>
+               <td>{{ character.total_attack_speed }}</td>
+            </tr>
+            <tr>
+               <td>
+                  <img src="../../static/wor/images/icons/stats/crit-rate.png">Crit. Rate
+               </td>
+               <td>0</td>
+               <td>{{ character.crit_rate_gear }}</td>
+               <td>0</td>
+               <td>0</td>
+               <td>{{ character.total_crit_rate }}</td>
+            </tr>
+            <tr>
+               <td>
+                  <img src="../../static/wor/images/icons/stats/crit-dmg.png">Crit. DMG
+               </td>
+               <td>150</td>
+               <td>{{ character.crit_dmg_gear }}</td>
+               <td>0</td>
+               <td>0</td>
+               <td>{{ character.total_crit_dmg }}</td>
+            </tr>
+            <tr>
+               <td>
+                  <img src="../../static/wor/images/icons/stats/heal-effect.png">Healing Effect
+               </td>
+               <td>0</td>
+               <td>{{ character.heal_effect_gear }}</td>
+               <td>0</td>
+               <td>0</td>
+               <td>{{ character.total_heal_effect }}</td>
+            </tr>
+            <tr>
+               <td>
+                  <img src="../../static/wor/images/icons/stats/rage-regen.png">Rage Regen
+               </td>
+               <td>0</td>
+               <td>{{ character.rage_regen_gear }}</td>
+               <td>0</td>
+               <td>0</td>
+               <td>{{ character.total_rage_regen }}</td>
+            </tr>
+            <tr>
+               <td>
+                  <img src="../../static/wor/images/icons/stats/rage-regen-auto.png">Rage Regen (Auto)
+               </td>
+               <td>13</td>
+               <td>{{ character.rage_regen_auto_gear }}</td>
+               <td>0</td>
+               <td>0</td>
+               <td>{{ character.total_rage_regen_auto }}</td>
+            </tr>
+            <tr>
+               <td>
+                  <img src="../../static/wor/images/icons/stats/rage-regen-basic.png">Rage Regen (Basic ATK)
+               </td>
+               <td>10</td>
+               <td>{{ character.rage_regen_atk_gear }}</td>
+               <td>0</td>
+               <td>0</td>
+               <td>{{ character.total_rage_regen_atk }}</td>
+            </tr>
+            <tr>
+               <td>
+                  <img src="../../static/wor/images/icons/stats/rage-regen-basic.png">Rage Regen (Attacked)
+               </td>
+               <td>7</td>
+               <td>{{ character.rage_regen_atked_gear }}</td>
+               <td>0</td>
+               <td>0</td>
+               <td>{{ character.total_rage_regen_atked }}</td>
+            </tr>
+         </table>
+         <!--<mat-tab-group ngskiphydration="" class="mat-mdc-tab-group mat-primary mat-mdc-tab-group-stretch-tabs" style="--mat-tab-animation-duration: 500ms;">
+            <mat-tab-header class="mat-mdc-tab-header">
+               <button aria-hidden="true" type="button" mat-ripple="" tabindex="-1" class="mat-ripple mat-mdc-tab-header-pagination mat-mdc-tab-header-pagination-before mat-mdc-tab-header-pagination-disabled" disabled="">
+                  <div class="mat-mdc-tab-header-pagination-chevron"></div>
+               </button>
+               <div class="mat-mdc-tab-label-container">
+                  <div role="tablist" class="mat-mdc-tab-list" style="transform: translateX(0px);">
+                     <div class="mat-mdc-tab-labels">
+                        <div role="tab" mattablabelwrapper="" cdkmonitorelementfocus="" class="mdc-tab mat-mdc-tab mat-mdc-focus-indicator mdc-tab--active mdc-tab-indicator--active" id="mat-tab-label-0-0" tabindex="0" aria-posinset="1" aria-setsize="4" aria-controls="mat-tab-content-0-0" aria-selected="true" aria-disabled="false">
+                           <span class="mdc-tab__ripple"></span>
+                           <div mat-ripple="" class="mat-ripple mat-mdc-tab-ripple"></div>
+                           <span class="mdc-tab__content">
+                           <span class="mdc-tab__text-label">
+                           <img src="../../static/wor/images/icons/navigation/skills.png" class="tab-icon selected-tab">Skills
+                           </span>
+                           </span>
+                           <span class="mdc-tab-indicator"><span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline" style=""></span></span>
+                      </div>
+                        <div role="tab" mattablabelwrapper="" cdkmonitorelementfocus="" class="mdc-tab mat-mdc-tab mat-mdc-focus-indicator" id="mat-tab-label-0-1" tabindex="-1" aria-posinset="2" aria-setsize="4" aria-controls="mat-tab-content-0-1" aria-selected="false" aria-disabled="false">
+                           <span class="mdc-tab__ripple"></span>
+                           <div mat-ripple="" class="mat-ripple mat-mdc-tab-ripple"></div>
+                           <span class="mdc-tab__content">
+                           <span class="mdc-tab__text-label">
+                           <img src="../../static/wor/images/icons/navigation/awaken.png" class="tab-icon">Awakenings
+                           </span>
+                           </span>
+                           <span class="mdc-tab-indicator"><span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline" style=""></span></span>
+                      </div>
+                        <div role="tab" mattablabelwrapper="" cdkmonitorelementfocus="" class="mdc-tab mat-mdc-tab mat-mdc-focus-indicator" id="mat-tab-label-0-2" tabindex="-1" aria-posinset="3" aria-setsize="4" aria-controls="mat-tab-content-0-2" aria-selected="false" aria-disabled="false">
+                           <span class="mdc-tab__ripple"></span>
+                           <div mat-ripple="" class="mat-ripple mat-mdc-tab-ripple"></div>
+                           <span class="mdc-tab__content">
+                           <span class="mdc-tab__text-label">
+                           <img src="../../static/wor/images/icons/navigation/tier.png" class="tab-icon">Tier Rating
+                           </span>
+                           </span>
+                           <span class="mdc-tab-indicator"><span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline" style=""></span></span>
+                      </div>
+                        <div role="tab" mattablabelwrapper="" cdkmonitorelementfocus="" class="mdc-tab mat-mdc-tab mat-mdc-focus-indicator" id="mat-tab-label-0-3" tabindex="-1" aria-posinset="4" aria-setsize="4" aria-controls="mat-tab-content-0-3" aria-selected="false" aria-disabled="false">
+                           <span class="mdc-tab__ripple"></span>
+                           <div mat-ripple="" class="mat-ripple mat-mdc-tab-ripple"></div>
+                           <span class="mdc-tab__content">
+                           <span class="mdc-tab__text-label">
+                           <img src="../../static/wor/images/icons/navigation/gear.png" class="tab-icon">Suggested Build
+                           </span>
+                           </span>
+                           <span class="mdc-tab-indicator"><span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline" style=""></span></span>
+                      </div>
+                   </div>
+                </div>
+             </div>
+               <button aria-hidden="true" type="button" mat-ripple="" tabindex="-1" class="mat-ripple mat-mdc-tab-header-pagination mat-mdc-tab-header-pagination-after mat-mdc-tab-header-pagination-disabled" disabled="">
+                  <div class="mat-mdc-tab-header-pagination-chevron"></div>
+               </button>
+            </mat-tab-header>
+            <div class="mat-mdc-tab-body-wrapper" style="">
+               <mat-tab-body role="tabpanel" class="mat-mdc-tab-body ng-tns-c737557735-1 mat-mdc-tab-body-active" id="mat-tab-content-0-0" aria-labelledby="mat-tab-label-0-0" aria-hidden="false">
+                  <div cdkscrollable="" class="mat-mdc-tab-body-content ng-tns-c737557735-1 ng-trigger ng-trigger-translateTab" style="transform: none;">
+                     <div class="hero-skill" style="">
+                        <app-hero-skill >
+                           <div class="hero-skill">
+                              <div class="skill-details">
+                                 <div class="skill-name">
+                                    <b >Talent</b>
+                               </div>
+                                 <div class="skill-description">
+                                    <span ></span> Increase ATK and DEF based on lost HP, up to [60%] at [30%] HP.
+                               </div>
+                            </div>
+                         </div>
+                        </app-hero-skill>
+                   </div>
+                     <div class="hero-skill" style="">
+                        <app-hero-skill >
+                           <div class="hero-skill">
+                              <img class="skill-image" src="../../static/wor/images/../../static/wor/images/hero-skills/valeriya-basic.png">
+                              <div class="skill-details">
+                                 <div class="skill-name">
+                                    <b >P. ATK</b>
+                               </div>
+                                 <div class="skill-description">
+                                    Deals [100%] DMG to [1] enemy.
+                               </div>
+                            </div>
+                              <div class="skill-levels">
+                                 <div class="level">
+                                    <div class="level-header"><b >Level 2</b>: DMG +5%</div>
+                               </div>
+                                 <div class="level">
+                                    <div class="level-header"><b >Level 3</b>: DMG +5%</div>
+                               </div>
+                                 <div class="level">
+                                    <div class="level-header"><b >Level 4</b>: DMG +5%</div>
+                               </div>
+                                 <div class="level">
+                                    <div class="level-header"><b >Level 5</b>: DMG +5%</div>
+                               </div>
+                            </div>
+                         </div>
+                        </app-hero-skill>
+                   </div>
+                     <div class="hero-skill" style="">
+                        <app-hero-skill >
+                           <div class="hero-skill">
+                              <img class="skill-image" src="../../static/wor/images/../../static/wor/images/hero-skills/valeriya-ultimate.png">
+                              <div class="skill-details">
+                                 <div class="skill-name">
+                                    <b >Blood Infusion</b>
+                                    <div class="stat"><img src="../../static/wor/images/icons/stats/rage-cost.png" loading="lazy">1000</div>
+                                    <div class="stat"><img src="../../static/wor/images/icons/stats/rage-start.png" loading="lazy">500</div>
+                                    <div class="stat"><img src="../../static/wor/images/icons/stats/skill-duration.png" loading="lazy">16</div>
+                              </div>
+                                 <div class="skill-description">
+                                    DMG +[80%]. Each attack consumes [10%] of the current HP and generates [1] stack of Power of the Sword, up to [8] stack(s). The hero cannot be healed during the skill. When the skill ends, deals [400%] Burst DMG to the main target and [4] targets around them.
+                              </div>
+                           </div>
+                              <div class="skill-levels">
+                                 <div class="level">
+                                    <div class="level-header"><b >Level 2</b>: DMG Increase +20%</div>
+                              </div>
+                                 <div class="level">
+                                    <div class="level-header"><b >Level 3</b>: DMG Increase +20%</div>
+                              </div>
+                                 <div class="level">
+                                    <div class="level-header"><b >Level 4</b>: Burst DMG Increase +40%</div>
+                              </div>
+                                 <div class="level">
+                                    <div class="level-header"><b >Level 5</b>: Skill Cost -100, Initial Rage +200</div>
+                              </div>
+                           </div>
+                        </div>
+                        </app-hero-skill>
+                  </div>
+                     <div class="hero-skill" style="">
+                        <app-hero-skill >
+                           <div class="hero-skill">
+                              <img class="skill-image" src="../../static/wor/images/../../static/wor/images/hero-skills/valeriya-passive1.png">
+                              <div class="skill-details">
+                                 <div class="skill-name">
+                                    <b >Plunging Slash</b>
+                              </div>
+                                 <div class="skill-description">
+                                    Smashes the target, dealing [240%] DMG, inflicting Vulnerability (P. DMG). During the Ultimate, each ATK reduces Plunging Slash's Cooldown by [2] sec.
+                              </div>
+                           </div>
+                              <div class="skill-levels">
+                                 <div class="level">
+                                    <div class="level-header"><b >Level 2</b>: DMG +20%</div>
+                              </div>
+                                 <div class="level">
+                                    <div class="level-header"><b >Level 3</b>: DMG +20%</div>
+                              </div>
+                                 <div class="level">
+                                    <div class="level-header"><b >Level 4</b>: DMG +20%</div>
+                              </div>
+                                 <div class="level">
+                                    <div class="level-header"><b >Level 5</b>: Cooldown Reduction Per ATK +1 sec</div>
+                              </div>
+                           </div>
+                        </div>
+                        </app-hero-skill>
+                  </div>
+                     <div class="hero-skill" style="">
+                        <app-hero-skill >
+                           <div class="hero-skill">
+                              <img class="skill-image" src="../../static/wor/images/../../static/wor/images/hero-skills/valeriya-passive2.png">
+                              <div class="skill-details">
+                                 <div class="skill-name">
+                                    <b >Will of Steel</b>
+                              </div>
+                                 <div class="skill-description">
+                                    When HP drops below [30%], restores [2%] HP per sec. Triggers the following effect instead during the Ultimate: the hero enters the Unyielding state upon taking fatal DMG and dies immediately when the Ultimate ends, which can be triggered up to [1] time per deployment.
+                              </div>
+                           </div>
+                              <div class="skill-levels">
+                                 <div class="level">
+                                    <div class="level-header"><b >Level 2</b>: HP Recovery per sec +1%</div>
+                              </div>
+                                 <div class="level">
+                                    <div class="level-header"><b >Level 3</b>: HP Recovery per sec +1%</div>
+                              </div>
+                                 <div class="level">
+                                    <div class="level-header"><b >Level 4</b>: HP Recovery per sec +1%</div>
+                              </div>
+                                 <div class="level">
+                                    <div class="level-header"><b >Level 5</b>: HP Recovery per sec +1%</div>
+                              </div>
+                           </div>
+                        </div>
+                        </app-hero-skill>
+                  </div>
+                     <div class="hero-skill" style="">
+                        <app-hero-skill >
+                           <div class="hero-skill">
+                              <img class="skill-image" src="../../static/wor/images/../../static/wor/images/hero-skills/arena-cost.png">
+                              <div class="skill-details">
+                                 <div class="skill-name">
+                                    <b >Arena Cost Reduced</b>
+                              </div>
+                                 <div class="skill-description">
+                                    Reduces the hero's Cost in the Arena by [4].
+                              </div>
+                            </div>
+                         </div>
+                        </app-hero-skill>
+                   </div>
+                </div>
+               </mat-tab-body>
+               <mat-tab-body role="tabpanel" class="mat-mdc-tab-body ng-tns-c737557735-2" id="mat-tab-content-0-1" aria-labelledby="mat-tab-label-0-1" aria-hidden="true">
+                  <div cdkscrollable="" class="mat-mdc-tab-body-content ng-tns-c737557735-2 ng-trigger ng-trigger-translateTab" style="transform: translate3d(100%, 0px, 0px); min-height: 1px; visibility: hidden;">
+                </div>
+               </mat-tab-body>
+               <mat-tab-body role="tabpanel" class="mat-mdc-tab-body ng-tns-c737557735-3" id="mat-tab-content-0-2" aria-labelledby="mat-tab-label-0-2" aria-hidden="true">
+                  <div cdkscrollable="" class="mat-mdc-tab-body-content ng-tns-c737557735-3 ng-trigger ng-trigger-translateTab" style="transform: translate3d(100%, 0px, 0px); min-height: 1px; visibility: hidden;">
+                </div>
+               </mat-tab-body>
+               <mat-tab-body role="tabpanel" class="mat-mdc-tab-body ng-tns-c737557735-4" id="mat-tab-content-0-3" aria-labelledby="mat-tab-label-0-3" aria-hidden="true">
+                  <div cdkscrollable="" class="mat-mdc-tab-body-content ng-tns-c737557735-4 ng-trigger ng-trigger-translateTab" style="transform: translate3d(100%, 0px, 0px); min-height: 1px; visibility: hidden;">
+                </div>
+               </mat-tab-body>
+            </div>
+            </mat-tab-group>-->
+      </div>
+   </div>
+</div>
+{% if error_message %}
+<p><strong>{{ error_message }}</strong></p>
+{% endif %}
+{% endblock %}

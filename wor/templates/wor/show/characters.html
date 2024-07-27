@@ -1,0 +1,15 @@
+{% extends 'wor/base.html' %}
+{% load static %}
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'wor/style.css' %}">
+
+{% if latest_character_list %}
+    {% for character in latest_character_list %}
+        <a href="{% url 'wor:character-detail' character.id %}"><img width="90" src="../../static/wor/../../static/wor/images/icons/heroes/{{ character.name }}.png"></a>
+    {% endfor %}
+{% else %}
+    <p>No wor are available.</p>
+{% endif %}
+
+{% endblock %}

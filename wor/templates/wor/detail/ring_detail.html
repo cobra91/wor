@@ -1,0 +1,17 @@
+{% extends 'wor/base.html' %}
+
+{% block content %}
+
+<h2>{{ ring.name }}</h2>
+
+<ul>
+ <li>Main Stat : {{ ring.main_stat }}</li>
+ <li>second_stat : {{ ring.second_stat }}</li>
+ <li>third_stat : {{ ring.third_stat }}</li>
+ <li>fourth_stat: {{ ring.fourth_stat }}</li>
+</ul>
+
+<a href="{% url 'wor:show_ring_url' %}">Return to rings list</a>
+
+
+{% endblock %}
