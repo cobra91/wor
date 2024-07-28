@@ -130,6 +130,19 @@ def ring_show_view(request):
     return render(request, template_name, context)
 
 
+def character_update_view(request, f_id):
+    character = Character.objects.get(id=f_id)
+    if request.method == "POST":
+        form = CharacterForm(request.POST, instance=character)
+        if form.is_valid():
+            form.save()
+            return redirect("wor:show_character_url")
+    template_name = "wor/form/character_form.html"
+    form = CharacterForm(instance=character)
+    context = {"form": form}
+    return render(request, template_name, context)
+
+
 def weapon_update_view(request, f_id):
     weapon = Weapon.objects.get(id=f_id)
     if request.method == "POST":

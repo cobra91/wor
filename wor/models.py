@@ -1,3 +1,5 @@
+import decimal
+
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -990,7 +992,7 @@ class Character(models.Model):
 
     @property
     def total_attack_speed(self) -> int:
-        return int(self.attack_speed + self.attack_speed_gear)
+        return self.attack_speed + self.attack_speed_gear
 
     @total_attack_speed.setter
     def total_attack_speed(self, value):
@@ -1020,11 +1022,11 @@ class Character(models.Model):
 
     @property
     def attack_interval_gear(self) -> float:
-        atk_int_equip = attack_interval_equipment(self.attack_interval, self.attack_speed_gear)
+        atk_int_equip: float = attack_interval_equipment(self.attack_interval, self.attack_speed_gear)
         if atk_int_equip is None:
             return 0
         else:
-            return self.attack_interval - attack_interval_equipment(self.attack_interval, self.attack_speed_gear)
+            return round(self.attack_interval - atk_int_equip, 6)
 
     @attack_interval_gear.setter
     def attack_interval_gear(self, value):
@@ -1032,7 +1034,7 @@ class Character(models.Model):
 
     @property
     def total_attack_interval(self) -> float:
-        return self.attack_interval - self.attack_interval_gear
+        return round(self.attack_interval - self.attack_interval_gear, 6)
 
     @total_attack_interval.setter
     def total_attack_interval(self, value):
