@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 from django.views import generic
 
-from .forms import AmuletForm, ChestplateForm, RingForm, WeaponForm, WristbandForm
+from .forms import AmuletForm, CharacterForm, ChestplateForm, RingForm, WeaponForm, WristbandForm
 from .models import Amulet, Character, Chestplate, Ring, Weapon, Wristband
 
 
@@ -21,6 +21,18 @@ class CharacterView(generic.ListView):
 class CharacterDetailView(generic.DetailView):
     model = Character
     template_name = "wor/detail/character_detail.html"
+
+
+def character_form_view(request):
+    form = CharacterForm()
+    if request.method == "POST":
+        form = CharacterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("wor:show_character_url")
+    template_name = "wor/form/character_form.html"
+    context = {"form": form}
+    return render(request, template_name, context)
 
 
 def weapon_form_view(request):

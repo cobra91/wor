@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">>
+<html lang="en">
     <head>
         <meta charset='utf-8'>
         <meta http-equiv='X-UA-Compatible' content='IE=edge'>
@@ -15,6 +15,9 @@
             <a class="navbar-brand" href="/">Accueil</a>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'wor:character_url' %}">Add Character<span class="sr-only">(current)</span></a>
+                    </li>
                     <li class="nav-item active">
                         <a class="nav-link" href="{% url 'wor:weapon_url' %}">Add Weapon<span class="sr-only">(current)</span></a>
                     </li>

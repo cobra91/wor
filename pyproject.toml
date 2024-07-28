@@ -38,7 +38,7 @@ line-length = 120
 
 
 [tool.mypy]
-python_version = "3.11"
+python_version = "3.12"
 
 # this is de-facto the linter setting for this file
 warn_unused_configs = true
@@ -80,7 +80,7 @@ extension-pkg-allow-list = "pydantic"
 
 # Minimum Python version to use for version dependent checks. Will default to the
 # version used to run pylint.
-py-version = "3.11"
+py-version = "3.12"
 
 [tool.pylint.basic]
 # Good variable names which should always be accepted, separated by a comma.

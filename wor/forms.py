@@ -1,5 +1,33 @@
 from django import forms
-from .models import Weapon, Chestplate, Wristband, Amulet, Ring
+
+from .models import Amulet, Character, Chestplate, Ring, Weapon, Wristband
+
+
+class CharacterForm(forms.ModelForm):
+    class Meta:
+        model = Character
+        fields = [
+            "rarity",
+            "heroclass",
+            "faction",
+            "name",
+            "health",
+            "attack",
+            "defense",
+            "mRes",
+            "cost",
+            "block",
+            "revival_time",
+            "attack_interval",
+            "crit_dmg",
+            "attack_speed",
+            "rage_regen_auto",
+            "weapon",
+            "chestplate",
+            "wrisband",
+            "amulet",
+            "ring",
+        ]
 
 
 class WeaponForm(forms.ModelForm):
