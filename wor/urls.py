@@ -5,6 +5,7 @@ from . import views
 app_name = "wor"
 urlpatterns = [
     path("", views.index_show_view, name="index"),
+    path("compareEquipmentForm/", views.compare_equipment_form_view, name="compare_equipment_url"),
     path("characterShow/", views.CharacterView.as_view(), name="show_character_url"),
     path("character/<int:pk>/", views.CharacterDetailView.as_view(), name="character-detail"),
     path("characterForm/", views.character_form_view, name="character_url"),
@@ -18,7 +19,7 @@ urlpatterns = [
     path("wristbandShow/", views.wristband_show_view, name="show_wristband_url"),
     path("amuletShow/", views.amulet_show_view, name="show_amulet_url"),
     path("ringShow/", views.ring_show_view, name="show_ring_url"),
-    path("character/<int:f_id>/change", views.character_update_view, name="update_weapon_url"),
+    path("character/<int:f_id>/change", views.character_update_view, name="update_character_url"),
     path("weapon/<int:f_id>/change", views.weapon_update_view, name="update_weapon_url"),
     path("chestplate/<int:f_id>/change", views.chestplate_update_view, name="update_chestplate_url"),
     path("wristband/<int:f_id>/change", views.wristband_update_view, name="update_wristband_url"),

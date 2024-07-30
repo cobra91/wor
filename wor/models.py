@@ -1,5 +1,3 @@
-import decimal
-
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -338,17 +336,21 @@ class Ring(Equipment, Set3p):
     )
 
 
-def hp_equipment(basehealth: int, equipment: Weapon | Chestplate | Wristband | Amulet | Ring):
+def hp_equipment(basehealth: int, equipment: Weapon | Chestplate | Wristband | Amulet | Ring) -> int:
     total_hp: int = 0
-    if type(equipment) in (Wristband, Amulet, Ring):
-        if hasattr(equipment, "main_stat") and equipment.main_stat in (
+    if (
+        type(equipment) in (Wristband, Amulet, Ring)
+        and hasattr(equipment, "main_stat")
+        and equipment.main_stat
+        in (
             Attribute.AttributeEnum.PV,
             Attribute.AttributeEnum.PV_BONUS,
-        ):
-            if equipment.main_stat == Attribute.AttributeEnum.PV:
-                total_hp += equipment.main_stat_value
-            else:
-                total_hp += basehealth * equipment.main_stat_value / 100
+        )
+    ):
+        if equipment.main_stat == Attribute.AttributeEnum.PV:
+            total_hp += equipment.main_stat_value
+        else:
+            total_hp += basehealth * equipment.main_stat_value / 100
 
     if hasattr(equipment, "first_stat") and equipment.first_stat in (
         Attribute.AttributeEnum.PV,
@@ -384,20 +386,24 @@ def hp_equipment(basehealth: int, equipment: Weapon | Chestplate | Wristband | A
             total_hp += equipment.fourth_stat_value
         else:
             total_hp += basehealth * equipment.fourth_stat_value / 100
-    return total_hp
+    return int(total_hp)
 
 
 def atk_equipment(baseattack: int, equipment: Weapon | Chestplate | Wristband | Amulet | Ring):
     total_atk: int = 0
-    if type(equipment) in (Wristband, Amulet, Ring):
-        if hasattr(equipment, "main_stat") and equipment.main_stat in (
+    if (
+        type(equipment) in (Wristband, Amulet, Ring)
+        and hasattr(equipment, "main_stat")
+        and equipment.main_stat
+        in (
             Attribute.AttributeEnum.ATQ,
             Attribute.AttributeEnum.ATQ_BONUS,
-        ):
-            if equipment.main_stat == Attribute.AttributeEnum.ATQ:
-                total_atk += equipment.main_stat_value
-            else:
-                total_atk += baseattack * equipment.main_stat_value / 100
+        )
+    ):
+        if equipment.main_stat == Attribute.AttributeEnum.ATQ:
+            total_atk += equipment.main_stat_value
+        else:
+            total_atk += baseattack * equipment.main_stat_value / 100
     if hasattr(equipment, "first_stat") and equipment.first_stat in (
         Attribute.AttributeEnum.ATQ,
         Attribute.AttributeEnum.ATQ_BONUS,
@@ -437,15 +443,19 @@ def atk_equipment(baseattack: int, equipment: Weapon | Chestplate | Wristband | 
 
 def def_equipment(basedef: int, equipment: Weapon | Chestplate | Wristband | Amulet | Ring):
     total_def: int = 0
-    if type(equipment) in (Wristband, Amulet, Ring):
-        if hasattr(equipment, "main_stat") and equipment.main_stat in (
+    if (
+        type(equipment) in (Wristband, Amulet, Ring)
+        and hasattr(equipment, "main_stat")
+        and equipment.main_stat
+        in (
             Attribute.AttributeEnum.DEF,
             Attribute.AttributeEnum.DEF_BONUS,
-        ):
-            if equipment.main_stat == Attribute.AttributeEnum.DEF:
-                total_def += equipment.main_stat_value
-            else:
-                total_def += basedef * equipment.main_stat_value / 100
+        )
+    ):
+        if equipment.main_stat == Attribute.AttributeEnum.DEF:
+            total_def += equipment.main_stat_value
+        else:
+            total_def += basedef * equipment.main_stat_value / 100
     if hasattr(equipment, "first_stat") and equipment.first_stat in (
         Attribute.AttributeEnum.DEF,
         Attribute.AttributeEnum.DEF_BONUS,
@@ -485,9 +495,12 @@ def def_equipment(basedef: int, equipment: Weapon | Chestplate | Wristband | Amu
 
 def crit_rate_equipment(equipment: Weapon | Chestplate | Wristband | Amulet | Ring):
     total_crit_rate: int = 0
-    if type(equipment) in (Wristband, Amulet, Ring):
-        if hasattr(equipment, "main_stat") and equipment.main_stat == Attribute.AttributeEnum.CRIT_RATE:
-            total_crit_rate += equipment.main_stat_value
+    if (
+        type(equipment) in (Wristband, Amulet, Ring)
+        and hasattr(equipment, "main_stat")
+        and equipment.main_stat == Attribute.AttributeEnum.CRIT_RATE
+    ):
+        total_crit_rate += equipment.main_stat_value
     if hasattr(equipment, "first_stat") and equipment.first_stat == Attribute.AttributeEnum.CRIT_RATE:
         total_crit_rate += equipment.first_stat_value
     if hasattr(equipment, "second_stat") and equipment.second_stat == Attribute.AttributeEnum.CRIT_RATE:
@@ -501,13 +514,12 @@ def crit_rate_equipment(equipment: Weapon | Chestplate | Wristband | Amulet | Ri
 
 def crit_dmg_equipment(equipment: Weapon | Chestplate | Wristband | Amulet | Ring):
     total_crit_dmg: int = 0
-    if type(equipment) in (Wristband, Amulet, Ring):
-        if (
-            hasattr(equipment, "main_stat")
-            and equipment.main_stat
-            and equipment.main_stat == Attribute.AttributeEnum.CRIT_DMG
-        ):
-            total_crit_dmg += equipment.main_stat_value
+    if (
+        type(equipment) in (Wristband, Amulet, Ring)
+        and hasattr(equipment, "main_stat")
+        and equipment.main_stat == Attribute.AttributeEnum.CRIT_DMG
+    ):
+        total_crit_dmg += equipment.main_stat_value
     if hasattr(equipment, "first_stat") and equipment.first_stat == Attribute.AttributeEnum.CRIT_DMG:
         total_crit_dmg += equipment.first_stat_value
     if hasattr(equipment, "second_stat") and equipment.second_stat == Attribute.AttributeEnum.CRIT_DMG:
@@ -521,18 +533,13 @@ def crit_dmg_equipment(equipment: Weapon | Chestplate | Wristband | Amulet | Rin
 
 def attack_speed_equipment(equipment: Weapon | Chestplate | Wristband | Amulet | Ring):
     total_attack_speed: int = 0
-    if type(equipment) in (Wristband, Amulet, Ring):
-        if (
-            hasattr(equipment, "main_stat")
-            and equipment.main_stat
-            and equipment.main_stat == Attribute.AttributeEnum.VIT_ATQ
-        ):
-            total_attack_speed += equipment.main_stat_value
     if (
-        hasattr(equipment, "first_stat")
-        and equipment.first_stat
-        and equipment.first_stat == Attribute.AttributeEnum.VIT_ATQ
+        type(equipment) in (Wristband, Amulet, Ring)
+        and hasattr(equipment, "main_stat")
+        and equipment.main_stat == Attribute.AttributeEnum.VIT_ATQ
     ):
+        total_attack_speed += equipment.main_stat_value
+    if hasattr(equipment, "first_stat") and equipment.first_stat == Attribute.AttributeEnum.VIT_ATQ:
         total_attack_speed += equipment.first_stat_value
     if hasattr(equipment, "second_stat") and equipment.second_stat == Attribute.AttributeEnum.VIT_ATQ:
         total_attack_speed += equipment.second_stat_value
@@ -545,14 +552,13 @@ def attack_speed_equipment(equipment: Weapon | Chestplate | Wristband | Amulet |
 
 def rage_regen_equipment(equipment: Weapon | Chestplate | Wristband | Amulet | Ring):
     total_rage_regen: int = 0
-    if type(equipment) in (Wristband, Amulet, Ring):
-        if hasattr(equipment, "main_stat") and equipment.main_stat == Attribute.AttributeEnum.RAGE_REGEN:
-            total_rage_regen += equipment.main_stat_value
     if (
-        hasattr(equipment, "first_stat")
-        and equipment.first_stat
-        and equipment.first_stat == Attribute.AttributeEnum.RAGE_REGEN
+        type(equipment) in (Wristband, Amulet, Ring)
+        and hasattr(equipment, "main_stat")
+        and equipment.main_stat == Attribute.AttributeEnum.RAGE_REGEN
     ):
+        total_rage_regen += equipment.main_stat_value
+    if hasattr(equipment, "first_stat") and equipment.first_stat == Attribute.AttributeEnum.RAGE_REGEN:
         total_rage_regen += equipment.first_stat_value
     if hasattr(equipment, "second_stat") and equipment.second_stat == Attribute.AttributeEnum.RAGE_REGEN:
         total_rage_regen += equipment.second_stat_value
@@ -561,6 +567,25 @@ def rage_regen_equipment(equipment: Weapon | Chestplate | Wristband | Amulet | R
     if hasattr(equipment, "fourth_stat") and equipment.fourth_stat == Attribute.AttributeEnum.RAGE_REGEN:
         total_rage_regen += equipment.fourth_stat_value
     return total_rage_regen
+
+
+def healing_effect_equipment(equipment: Weapon | Chestplate | Wristband | Amulet | Ring):
+    total_heal_effect: int = 0
+    if (
+        type(equipment) in (Wristband, Amulet, Ring)
+        and hasattr(equipment, "main_stat")
+        and equipment.main_stat == Attribute.AttributeEnum.HEAL_EFFECT
+    ):
+        total_heal_effect += equipment.main_stat_value
+    if hasattr(equipment, "first_stat") and equipment.first_stat == Attribute.AttributeEnum.HEAL_EFFECT:
+        total_heal_effect += equipment.first_stat_value
+    if hasattr(equipment, "second_stat") and equipment.second_stat == Attribute.AttributeEnum.HEAL_EFFECT:
+        total_heal_effect += equipment.second_stat_value
+    if hasattr(equipment, "third_stat") and equipment.third_stat == Attribute.AttributeEnum.HEAL_EFFECT:
+        total_heal_effect += equipment.third_stat_value
+    if hasattr(equipment, "fourth_stat") and equipment.fourth_stat == Attribute.AttributeEnum.HEAL_EFFECT:
+        total_heal_effect += equipment.fourth_stat_value
+    return total_heal_effect
 
 
 def attack_interval_equipment(attack_interval: float, attack_speed_gear: int) -> float:
@@ -829,12 +854,6 @@ class Character(models.Model):
     ring = models.ForeignKey(Ring, on_delete=models.CASCADE, null=True, blank=True)
 
     # calculate value
-    # hp_gear = models.IntegerField(default=0, blank=True)
-    # total_hp = models.IntegerField(default=0, blank=True)
-    # atk_gear = models.IntegerField(default=0, blank=True)
-    # total_atk = models.IntegerField(default=0, blank=True)
-    # def_gear = models.IntegerField(default=0, blank=True)
-    # total_def = models.IntegerField(default=0, blank=True)
     # mRes_gear = models.IntegerField(default=0, blank=True)
     # total_mRes = models.IntegerField(default=0, blank=True)
     # cost_gear = models.IntegerField(default=0, blank=True)
@@ -843,14 +862,6 @@ class Character(models.Model):
     # total_block = models.IntegerField(default=0, blank=True)
     # revival_time_gear = models.IntegerField(default=0, blank=True)
     # total_revival_time = models.IntegerField(default=0, blank=True)
-    # attack_interval_gear = models.IntegerField(default=0, blank=True)
-    # total_attack_interval = models.IntegerField(default=0, blank=True)
-    # attack_speed_gear = models.IntegerField(default=0, blank=True)
-    # total_attack_speed = models.IntegerField(default=0, blank=True)
-    # crit_rate_gear = models.IntegerField(default=0, blank=True)
-    # total_crit_rate = models.IntegerField(default=0, blank=True)
-    # crit_dmg_gear = models.IntegerField(default=0, blank=True)
-    # total_crit_dmg = models.IntegerField(default=0, blank=True)
     # heal_effect_gear = models.IntegerField(default=0, blank=True)
     # total_heal_effect = models.IntegerField(default=0, blank=True)
     # rage_regen_gear = models.IntegerField(default=0, blank=True)
@@ -893,6 +904,9 @@ class Character(models.Model):
             atk_gear += self.weapon.main_stat_value
         atk_gear += atk_equipment(self.attack, self.weapon)
         atk_gear += atk_equipment(self.attack, self.chestplate)
+        if self.weapon and self.chestplate and self.weapon.set_name == self.chestplate.set_name:
+            if self.weapon.set_name in (Set2pEnum.CALAMITY, Set2pEnum.WARLORD):
+                atk_gear += self.attack * 25 / 100
         atk_gear += atk_equipment(self.attack, self.wrisband)
         atk_gear += atk_equipment(self.attack, self.amulet)
         atk_gear += atk_equipment(self.attack, self.ring)
@@ -981,6 +995,11 @@ class Character(models.Model):
         crt_attack_speed_gear = 0
         crt_attack_speed_gear += attack_speed_equipment(self.weapon)
         crt_attack_speed_gear += attack_speed_equipment(self.chestplate)
+        if self.weapon and self.chestplate and self.weapon.set_name == self.chestplate.set_name:
+            if self.weapon.set_name == Set2pEnum.WARLORD:
+                crt_attack_speed_gear += 30
+            if self.weapon.set_name == Set2pEnum.WHIRLWIND:
+                crt_attack_speed_gear += 75
         crt_attack_speed_gear += attack_speed_equipment(self.wrisband)
         crt_attack_speed_gear += attack_speed_equipment(self.amulet)
         crt_attack_speed_gear += attack_speed_equipment(self.ring)
@@ -1039,6 +1058,28 @@ class Character(models.Model):
     @total_attack_interval.setter
     def total_attack_interval(self, value):
         self.total_attack_interval = value
+
+    @property
+    def heal_effect_gear(self) -> int:
+        crt_healing_effect_gear = 0
+        crt_healing_effect_gear += healing_effect_equipment(self.weapon)
+        crt_healing_effect_gear += healing_effect_equipment(self.chestplate)
+        crt_healing_effect_gear += healing_effect_equipment(self.wrisband)
+        crt_healing_effect_gear += healing_effect_equipment(self.amulet)
+        crt_healing_effect_gear += healing_effect_equipment(self.ring)
+        return int(crt_healing_effect_gear)
+
+    @heal_effect_gear.setter
+    def healing_effect_gear(self, value):
+        self.heal_effect_gear = value
+
+    @property
+    def total_heal_effect(self) -> int:
+        return int(self.heal_effect_gear)
+
+    @total_heal_effect.setter
+    def total_heal_effect(self, value):
+        self.total_heal_effect = value
 
     def __str__(self):
         return self.name

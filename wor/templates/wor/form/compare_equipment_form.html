@@ -1,0 +1,111 @@
+{% extends 'wor/base.html' %}
+{% load static %}
+{% block title %}
+<title>Compare Equipment Form</title>
+{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'wor/compare.css' %}">
+<center>
+   <h1>Compare Equipment Form</h1>
+</center>
+<div class="container">
+   <form method="post">
+      {% csrf_token %}
+      {% if character_list %}
+         {{form.character}}
+      {% else %}
+         <p>No characters are available.</p>
+      {% endif %}
+      <div class="stats_grid">
+         <div></div>
+         <div class="stats_grid-stat-header">Min</div>
+         <div class="stats_grid-stat-header">Max</div>
+         <div class="stats_grid-stat-title">HP</div>
+         <div>
+            {{form.hp_min}}
+         </div>
+         <div>
+            {{form.hp_max}}
+         </div>
+         <div class="stats_grid-stat-title">Atk</div>
+         <div>
+            {{form.atk_min}}
+         </div>
+         <div>
+            {{form.atk_max}}
+         </div>
+         <div class="stats_grid-stat-title">Def</div>
+         <div>
+            {{form.def_min}}
+         </div>
+         <div>
+            {{form.def_max}}
+         </div>
+         <div class="stats_grid-stat-title">Crit. Rate</div>
+         <div>
+            {{form.crit_rate_min}}
+         </div>
+         <div>
+            {{form.crit_rate_max}}
+         </div>
+         <div class="stats_grid-stat-title">Crit. Dmg</div>
+         <div>
+            {{form.crit_dmg_min}}
+         </div>
+         <div>
+            {{form.crit_dmg_max}}
+         </div>
+         <div class="stats_grid-stat-title">Spd Interval</div>
+         <div>
+            {{form.vit_interval_min}}
+         </div>
+         <div>
+             {{form.vit_interval_max}}
+         </div>
+         <div class="stats_grid-stat-title">Rage Regen</div>
+         <div>
+            {{form.rage_regen_min}}
+         </div>
+         <div>
+            {{form.rage_regen_max}}
+         </div>
+         <div class="stats_grid-stat-title">Heal Effect</div>
+         <div>
+            {{form.heal_effect_min}}
+         </div>
+         <div>
+            {{form.heal_effect_max}}
+         </div>
+      </div>
+      <input type="submit" value="Launch Compare">
+   </form>
+   {% if result_list %}
+   <table>
+         <thead>
+            <tr>
+               <th scope="col">HP</th>
+               <th scope="col">ATK</th>
+               <th scope="col">DEF</th>
+               <th scope="col">Crit. Rate</th>
+               <th scope="col">Crit. DMG</th>
+               <th scope="col">Spd Interval</th>
+               <th scope="col">Rage Regen</th>
+               <th scope="col">Heal Effect</th>
+            </tr>
+         </thead>
+         {% for characterEquip in characterEquipList %}
+         <tr>
+            <td>{{ characterEquip.total_hp}}</td>
+            <td>{{ characterEquip.total_atk}}</td>
+            <td>{{ characterEquip.total_def}}</td>
+            <td>{{ characterEquip.total_crit_rate}}</td>
+            <td>{{ characterEquip.total_crit_dmg}}</td>
+            <td>{{ characterEquip.total_attack_interval}}</td>
+            <td>{{ characterEquip.total_rage_regen}}</td>
+            <td>{{ characterEquip.total_heal_effect}}</td>
+         </tr>
+    {% endfor %}
+   </table>
+   {% endif %}
+</div>
+{% endblock %}
