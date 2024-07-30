@@ -25,7 +25,6 @@ share/python-wheels/
 .installed.cfg
 *.egg
 MANIFEST
-*.tar
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -59,6 +58,7 @@ cover/
 # Django stuff:
 *.log
 local_settings.py
+db.sqlite3
 db.sqlite3-journal
 
 # Flask stuff:

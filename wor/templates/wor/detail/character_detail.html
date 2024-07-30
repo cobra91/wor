@@ -7,37 +7,30 @@
       <div>
          <div class="hero-section">
             <div class="hero-details">
-               {% if character.rarity|stringformat:'s' != 'Rare' %}
-                  <img class="rarity-banner" src="{% get_static_prefix %}wor/images/banners/{{ character.rarity }}-banner.png">
-               {% else %}
-                  <img class="rarity-banner" src="{% static 'wor/images/banners/Epic-banner.png' %}">
-               {% endif %}
+               <img class="rarity-banner" src="../../static/wor/images/banners/legendary-banner.png">
                <div class="hero-header">
-                  <h1 class="hero-name">{{ character.name }}</h1>
+                  <h1 class="hero-name">Valeriya</h1>
                   <div style="display: flex;">
-                     {% if character.faction %}
-                        {% for faction in character.faction.all %}
-                           <img class="faction-icon" src="{% get_static_prefix %}wor/images/icons/factions/{{ faction }}.png">
-                        {% endfor %}
-                     {% endif %}
+                     <img class="faction-icon" src="../../static/wor/images/icons/factions/chaos-dominion.png">
+                     <img class="faction-icon" src="../../static/wor/images/icons/factions/nightmare.png">
                   </div>
                </div>
                <div class="hero-info-section">
                   <div class="hero-attack-info">
                      <div class="hero-type">
                         <div class="hero-info">
-                           <img class="type-icon" src="{% get_static_prefix %}wor/images/icons/classes/{{ character.heroclass }}.png">{{ character.heroclass }}
+                           <img class="type-icon" src="../../static/wor/images/icons/classes/fighter.png">fighter
                         </div>
                         <div class="hero-info">
-                           <img class="type-icon" src="{% get_static_prefix %}wor/images/icons/damage-types/normal.png">normal
+                           <img class="type-icon" src="../../static/wor/images/icons/damage-types/normal.png">normal
                         </div>
                      </div>
                      <div class="attack-range-section">
                         <div class="attack-range">
-                           <img class="attack-range-icon" src="{% static 'wor/images/icons/attack-ranges/AttackRange_01.png' %}">Base
+                           <img class="attack-range-icon" src="../../static/wor/images/icons/attack-ranges/AttackRange_01.png">Base
                         </div>
                         <div class="attack-range">
-                           <img class="attack-range-icon" src="{% static 'wor/images/icons/attack-ranges/AttackRange_06.png' %}">Ultimate
+                           <img class="attack-range-icon" src="../../static/wor/images/icons/attack-ranges/AttackRange_06.png">Ultimate
                         </div>
                      </div>
                   </div>
@@ -45,36 +38,31 @@
                      <div>Status Effects</div>
                      <div class="effects">
                         <div>
-                           <img class="effect-icon" src="{% static 'wor/images/icons/effects/pDmgVulnerability.png' %}">
+                           <img class="effect-icon" src="../../static/wor/images/icons/effects/pDmgVulnerability.png">
                         </div>
                         <div>
-                           <img class="effect-icon" src="{% static 'wor/images/icons/effects/unyielding.png' %}">
+                           <img class="effect-icon" src="../../static/wor/images/icons/effects/unyielding.png">
                         </div>
                      </div>
                      <div>From Awakenings</div>
                      <div class="no-data">-</div>
                   </div>
                </div>
-               <div class="hero-description">
-                  <!--Following her buffs and new talent, Valeriya now provides an incredibly high amount of damage.
-                  It can be difficult to juggle her HP in long content such as Guild Boss -
-                  but if you're able to nail the timings she becomes lethal and incredibly competitive.
-                  Her undying state also makes her very usable in a lot of end-game content.-->
-               </div>
+               <div class="hero-description">Following her buffs and new talent, Valeriya now provides an incredibly high amount of damage. It can be difficult to juggle her HP in long content such as Guild Boss - but if you're able to nail the timings she becomes lethal and incredibly competitive. Her undying state also makes her very usable in a lot of end-game content.</div>
             </div>
             <div class="hero-block">
-               <img class="hero-image" src="{% get_static_prefix %}wor/images/icons/heroes/busts/{{ character.name }}.png">
+               <img class="hero-image" src="../../static/wor/../../static/wor/images/icons/heroes/busts/{{ character.name }}.png">
                <div class="hero-stats">
                   <table>
                      <tr>
                         <td>
-                           <img src="{% static 'wor/images/icons/stats/hp.png' %}">HP
+                           <img src="../../static/wor/images/icons/stats/hp.png">HP
                         </td>
                         <td>{{ character.health }}</td>
                      </tr>
                      <tr>
                         <td>
-                           <img src="{% static 'wor/images/icons/stats/attack.png' %}">
+                           <img src="../../static/wor/images/icons/stats/attack.png">
                            ATK
                         </td>
                         <td>
@@ -83,7 +71,7 @@
                      </tr>
                      <tr>
                         <td>
-                           <img src="{% static 'wor/images/icons/stats/def.png' %}"> DEF
+                           <img src="../../static/wor/images/icons/stats/def.png"> DEF
                         </td>
                         <td>
                            {{ character.defense }}
@@ -91,7 +79,7 @@
                      </tr>
                      <tr>
                         <td>
-                           <img src="{% static 'wor/images/icons/stats/mRes.png' %}"> M. Res
+                           <img src="../../static/wor/images/icons/stats/mRes.png"> M. Res
                         </td>
                         <td>
                            {{ character.magic_resistance }}
@@ -99,7 +87,7 @@
                      </tr>
                      <tr>
                         <td>
-                           <img src="{% static 'wor/images/icons/stats/cost.png' %}"> Cost
+                           <img src="../../static/wor/images/icons/stats/cost.png"> Cost
                         </td>
                         <td>
                            {{ character.cost }}
@@ -107,7 +95,7 @@
                      </tr>
                      <tr>
                         <td>
-                           <img src="{% static 'wor/images/icons/stats/block.png' %}">Block
+                           <img src="../../static/wor/images/icons/stats/block.png">Block
                         </td>
                         <td>
                            {{ character.block }}
@@ -115,7 +103,7 @@
                      </tr>
                      <tr>
                         <td>
-                           <img src="{% static 'wor/images/icons/stats/revival-time.png' %}">Revival Time
+                           <img src="../../static/wor/images/icons/stats/revival-time.png">Revival Time
                         </td>
                         <td>
                            {{ character.revival_time }}
@@ -123,7 +111,7 @@
                      </tr>
                      <tr>
                         <td>
-                           <img src="{% static 'wor/images/icons/stats/atk-interval.png' %}">Attack Interval
+                           <img src="../../static/wor/images/icons/stats/atk-interval.png">Attack Interval
                         </td>
                         <td>
                            {{ character.attack_interval }}
@@ -131,7 +119,7 @@
                      </tr>
                      <tr>
                         <td>
-                           <img src="{% static 'wor/images/icons/stats/rage-regen-auto.png' %}">Rage Regen A.
+                           <img src="../../static/wor/images/icons/stats/rage-regen-auto.png">Rage Regen A.
                         </td>
                         <td>
                            {{ character.rage_regen_auto }}
@@ -141,7 +129,7 @@
                </div>
             </div>
          </div>
-         <div style="text-align:center;margin-top:20px;">Total Attributes</div>
+         <div style="text-align:center">Total Attributes</div>
          <br/>
          <br/>
          <table>
@@ -155,7 +143,7 @@
             </tr>
             <tr>
                <td>
-                  <img src="{% static 'wor/images/icons/stats/hp.png' %}">HP
+                  <img src="../../static/wor/images/icons/stats/hp.png">HP
                </td>
                <td>{{ character.health }}</td>
                <td>{{ character.hp_gear }}</td>
@@ -165,7 +153,7 @@
             </tr>
             <tr>
                <td>
-                  <img src="{% static 'wor/images/icons/stats/attack.png' %}">ATK
+                  <img src="../../static/wor/images/icons/stats/attack.png">ATK
                </td>
                <td>{{ character.attack }}</td>
                <td>{{ character.atk_gear }}</td>
@@ -175,7 +163,7 @@
             </tr>
             <tr>
                <td>
-                  <img src="{% static 'wor/images/icons/stats/def.png' %}">DEF
+                  <img src="../../static/wor/images/icons/stats/def.png">DEF
                </td>
                <td>{{ character.defense }}</td>
                <td>{{ character.def_gear }}</td>
@@ -185,7 +173,7 @@
             </tr>
             <tr>
                <td>
-                  <img src="{% static 'wor/images/icons/stats/mRes.png' %}">M. RES.
+                  <img src="../../static/wor/images/icons/stats/mRes.png">M. RES.
                </td>
                <td>{{ character.mRes }}</td>
                <td>{{ character.mRes_gear }}</td>
@@ -195,7 +183,7 @@
             </tr>
             <tr>
                <td>
-                  <img src="{% static 'wor/images/icons/stats/cost.png' %}">Cost
+                  <img src="../../static/wor/images/icons/stats/cost.png">Cost
                </td>
                <td>{{ character.cost }}</td>
                <td>{{ character.cost_gear }}</td>
@@ -205,7 +193,7 @@
             </tr>
             <tr>
                <td>
-                  <img src="{% static 'wor/images/icons/stats/block.png' %}">Block
+                  <img src="../../static/wor/images/icons/stats/block.png">Block
                </td>
                <td>{{ character.block }}</td>
                <td>{{ character.block_gear }}</td>
@@ -215,7 +203,7 @@
             </tr>
             <tr>
                <td>
-                  <img src="{% static 'wor/images/icons/stats/revival-time.png' %}">Redeployment Time
+                  <img src="../../static/wor/images/icons/stats/revival-time.png">Redeployment Time
                </td>
                <td>{{ character.revival_time }}</td>
                <td>{{ character.revival_time_gear }}</td>
@@ -225,7 +213,7 @@
             </tr>
             <tr>
                <td>
-                  <img src="{% static 'wor/images/icons/stats/atk-interval.png' %}">ATK Interval
+                  <img src="../../static/wor/images/icons/stats/atk-interval.png">ATK Interval
                </td>
                <td>{{ character.attack_interval }}</td>
                <td>{{ character.attack_interval_gear }}</td>
@@ -235,7 +223,7 @@
             </tr>
             <tr>
                <td>
-                  <img src="{% static 'wor/images/icons/stats/atk-speed.png' %}">ATK Spd.
+                  <img src="../../static/wor/images/icons/stats/atk-speed.png">ATK Spd.
                </td>
                <td>{{ character.attack_speed }}</td>
                <td>{{ character.attack_speed_gear }}</td>
@@ -245,7 +233,7 @@
             </tr>
             <tr>
                <td>
-                  <img src="{% static 'wor/images/icons/stats/crit-rate.png' %}">Crit. Rate
+                  <img src="../../static/wor/images/icons/stats/crit-rate.png">Crit. Rate
                </td>
                <td>0</td>
                <td>{{ character.crit_rate_gear }}</td>
@@ -255,7 +243,7 @@
             </tr>
             <tr>
                <td>
-                  <img src="{% static 'wor/images/icons/stats/crit-dmg.png' %}">Crit. DMG
+                  <img src="../../static/wor/images/icons/stats/crit-dmg.png">Crit. DMG
                </td>
                <td>150</td>
                <td>{{ character.crit_dmg_gear }}</td>
@@ -265,7 +253,7 @@
             </tr>
             <tr>
                <td>
-                  <img src="{% static 'wor/images/icons/stats/heal-effect.png' %}">Healing Effect
+                  <img src="../../static/wor/images/icons/stats/heal-effect.png">Healing Effect
                </td>
                <td>0</td>
                <td>{{ character.heal_effect_gear }}</td>
@@ -275,7 +263,7 @@
             </tr>
             <tr>
                <td>
-                  <img src="{% static 'wor/images/icons/stats/rage-regen.png' %}">Rage Regen
+                  <img src="../../static/wor/images/icons/stats/rage-regen.png">Rage Regen
                </td>
                <td>0</td>
                <td>{{ character.rage_regen_gear }}</td>
@@ -285,7 +273,7 @@
             </tr>
             <tr>
                <td>
-                  <img src="{% static 'wor/images/icons/stats/rage-regen-auto.png' %}">Rage Regen (Auto)
+                  <img src="../../static/wor/images/icons/stats/rage-regen-auto.png">Rage Regen (Auto)
                </td>
                <td>13</td>
                <td>{{ character.rage_regen_auto_gear }}</td>
@@ -295,7 +283,7 @@
             </tr>
             <tr>
                <td>
-                  <img src="{% static 'wor/images/icons/stats/rage-regen-basic.png' %}">Rage Regen (Basic ATK)
+                  <img src="../../static/wor/images/icons/stats/rage-regen-basic.png">Rage Regen (Basic ATK)
                </td>
                <td>10</td>
                <td>{{ character.rage_regen_atk_gear }}</td>
@@ -305,7 +293,7 @@
             </tr>
             <tr>
                <td>
-                  <img src="{% static 'wor/images/icons/stats/rage-regen-basic.png' %}">Rage Regen (Attacked)
+                  <img src="../../static/wor/images/icons/stats/rage-regen-basic.png">Rage Regen (Attacked)
                </td>
                <td>7</td>
                <td>{{ character.rage_regen_atked_gear }}</td>
@@ -327,7 +315,7 @@
                            <div mat-ripple="" class="mat-ripple mat-mdc-tab-ripple"></div>
                            <span class="mdc-tab__content">
                            <span class="mdc-tab__text-label">
-                           <img src="{% static 'wor/images/icons/navigation/skills.png" class="tab-icon selected-tab">Skills
+                           <img src="../../static/wor/images/icons/navigation/skills.png" class="tab-icon selected-tab">Skills
                            </span>
                            </span>
                            <span class="mdc-tab-indicator"><span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline" style=""></span></span>
@@ -337,7 +325,7 @@
                            <div mat-ripple="" class="mat-ripple mat-mdc-tab-ripple"></div>
                            <span class="mdc-tab__content">
                            <span class="mdc-tab__text-label">
-                           <img src="{% static 'wor/images/icons/navigation/awaken.png" class="tab-icon">Awakenings
+                           <img src="../../static/wor/images/icons/navigation/awaken.png" class="tab-icon">Awakenings
                            </span>
                            </span>
                            <span class="mdc-tab-indicator"><span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline" style=""></span></span>
@@ -347,7 +335,7 @@
                            <div mat-ripple="" class="mat-ripple mat-mdc-tab-ripple"></div>
                            <span class="mdc-tab__content">
                            <span class="mdc-tab__text-label">
-                           <img src="{% static 'wor/images/icons/navigation/tier.png" class="tab-icon">Tier Rating
+                           <img src="../../static/wor/images/icons/navigation/tier.png" class="tab-icon">Tier Rating
                            </span>
                            </span>
                            <span class="mdc-tab-indicator"><span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline" style=""></span></span>
@@ -357,7 +345,7 @@
                            <div mat-ripple="" class="mat-ripple mat-mdc-tab-ripple"></div>
                            <span class="mdc-tab__content">
                            <span class="mdc-tab__text-label">
-                           <img src="{% static 'wor/images/icons/navigation/gear.png" class="tab-icon">Suggested Build
+                           <img src="../../static/wor/images/icons/navigation/gear.png" class="tab-icon">Suggested Build
                            </span>
                            </span>
                            <span class="mdc-tab-indicator"><span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline" style=""></span></span>
@@ -389,7 +377,7 @@
                      <div class="hero-skill" style="">
                         <app-hero-skill >
                            <div class="hero-skill">
-                              <img class="skill-image" src="{% static 'wor/images/hero-skills/valeriya-basic.png' %}">
+                              <img class="skill-image" src="../../static/wor/images/../../static/wor/images/hero-skills/valeriya-basic.png">
                               <div class="skill-details">
                                  <div class="skill-name">
                                     <b >P. ATK</b>
@@ -418,13 +406,13 @@
                      <div class="hero-skill" style="">
                         <app-hero-skill >
                            <div class="hero-skill">
-                              <img class="skill-image" src="{% static 'wor/images/hero-skills/valeriya-ultimate.png' %}">
+                              <img class="skill-image" src="../../static/wor/images/../../static/wor/images/hero-skills/valeriya-ultimate.png">
                               <div class="skill-details">
                                  <div class="skill-name">
                                     <b >Blood Infusion</b>
-                                    <div class="stat"><img src="{% static 'wor/images/icons/stats/rage-cost.png" loading="lazy">1000</div>
-                                    <div class="stat"><img src="{% static 'wor/images/icons/stats/rage-start.png" loading="lazy">500</div>
-                                    <div class="stat"><img src="{% static 'wor/images/icons/stats/skill-duration.png" loading="lazy">16</div>
+                                    <div class="stat"><img src="../../static/wor/images/icons/stats/rage-cost.png" loading="lazy">1000</div>
+                                    <div class="stat"><img src="../../static/wor/images/icons/stats/rage-start.png" loading="lazy">500</div>
+                                    <div class="stat"><img src="../../static/wor/images/icons/stats/skill-duration.png" loading="lazy">16</div>
                               </div>
                                  <div class="skill-description">
                                     DMG +[80%]. Each attack consumes [10%] of the current HP and generates [1] stack of Power of the Sword, up to [8] stack(s). The hero cannot be healed during the skill. When the skill ends, deals [400%] Burst DMG to the main target and [4] targets around them.
@@ -450,7 +438,7 @@
                      <div class="hero-skill" style="">
                         <app-hero-skill >
                            <div class="hero-skill">
-                              <img class="skill-image" src="{% static 'wor/images/hero-skills/valeriya-passive1.png' %}">
+                              <img class="skill-image" src="../../static/wor/images/../../static/wor/images/hero-skills/valeriya-passive1.png">
                               <div class="skill-details">
                                  <div class="skill-name">
                                     <b >Plunging Slash</b>
@@ -479,7 +467,7 @@
                      <div class="hero-skill" style="">
                         <app-hero-skill >
                            <div class="hero-skill">
-                              <img class="skill-image" src="{% static 'wor/images/hero-skills/valeriya-passive2.png' %}">
+                              <img class="skill-image" src="../../static/wor/images/../../static/wor/images/hero-skills/valeriya-passive2.png">
                               <div class="skill-details">
                                  <div class="skill-name">
                                     <b >Will of Steel</b>
@@ -508,7 +496,7 @@
                      <div class="hero-skill" style="">
                         <app-hero-skill >
                            <div class="hero-skill">
-                              <img class="skill-image" src="{% static 'wor/images/hero-skills/arena-cost.png' %}">
+                              <img class="skill-image" src="../../static/wor/images/../../static/wor/images/hero-skills/arena-cost.png">
                               <div class="skill-details">
                                  <div class="skill-name">
                                     <b >Arena Cost Reduced</b>

@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 from django.views import generic
 
-from .forms import AmuletForm, CharacterForm, ChestplateForm, CompareEquipmentForm, RingForm, WeaponForm, WristbandForm
+from .forms import AmuletForm, CharacterForm, ChestplateForm, RingForm, WeaponForm, WristbandForm
 from .models import Amulet, Character, Chestplate, Ring, Weapon, Wristband
 
 
@@ -10,28 +10,9 @@ def index_show_view(request):
     return render(request, template_name)
 
 
-def compare_equipment_form_view(request):
-    template_name = "wor/form/compare_equipment_form.html"
-    if request.method == "POST":
-        form = CompareEquipmentForm(request.POST)
-        if form.is_valid():
-            resultlist: list[object] = form.compare()
-            character_equip_list = form.characterEquipList
-            context = {
-                "form": form,
-                "character_list": Character.objects.order_by("-name"),
-                "result_list": resultlist,
-                "characterEquipList": character_equip_list,
-            }
-            return render(request, template_name, context)
-    form = CompareEquipmentForm()
-    context = {"form": form, "character_list": Character.objects.order_by("-name")}
-    return render(request, template_name, context)
-
-
 class CharacterView(generic.ListView):
     template_name = "wor/show/characters.html"
-    context_object_name = "character_list"
+    context_object_name = "latest_character_list"
 
     def get_queryset(self):
         return Character.objects.order_by("-name")

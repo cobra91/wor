@@ -1,0 +1,17 @@
+{% extends 'wor/base.html' %}
+
+{% block title %}
+   <title>Add Page</title>
+{% endblock %}
+
+{% block content %}
+<h1>{{ character.name }}</h1>
+
+<ul>
+{% for character in character.choice_set.all %}
+    <li>{{ character.choice_text }} -- {{ choice.votes }} vote{{ choice.votes|pluralize }}</li>
+{% endfor %}
+</ul>
+
+<a href="{% url 'wor:detail' character.id %}">Vote again?</a>
+{% endblock %}

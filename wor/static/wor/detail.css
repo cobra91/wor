@@ -1,26 +1,45 @@
-a {
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: Karla,Verdana,sans-serif;
+    height: 100%;
+    scrollbar-width: none;
+    scrollbar-color: #ffe400 #FDF6EC;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position-x: 30%;
     color: white;
 }
 
-button {
-    background: blue;
-}
 
-body {
-    background: black;
-    color: white;
-    font-family: Verdana,sans-serif;
+.page-container {
+    position: relative;
+    top: 75px;
+    padding-bottom: 15px;
+    width: 100vw;
+    overflow: hidden;
+    scrollbar-width: thin;
+    color: #fff;
+    border-radius: 5px;
+    min-height: 90vh;
+
+    border: 3px solid var(--mat-primary);
 }
 
 .container {
-    max-width: 44%;
-    min-width: 11%;
+    max-width: 1350px;
+    min-width: 320px;
+    width: 100%;
+    padding: 0 16px;
     margin-left: auto;
     margin-right: auto;
 }
 
+
+
 .page-min {
     background-color: #1e2125e8;
+    min-height: 80vh;
 }
 
 .hero-section {
