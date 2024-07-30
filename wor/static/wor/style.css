@@ -1,8 +1,14 @@
-li a {
-    color: green;
+a {
+    color: white;
+}
+
+button {
+    background: blue;
 }
 
 body {
-    background: white url("images/watcherofrealms-splash-4.png") no-repeat;
+    background: black;
+    color: white;
+    font-family: Verdana,sans-serif;
 }
 

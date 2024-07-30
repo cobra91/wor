@@ -1,45 +1,26 @@
-html, body {
-    margin: 0;
-    padding: 0;
-    font-family: Karla,Verdana,sans-serif;
-    height: 100%;
-    scrollbar-width: none;
-    scrollbar-color: #ffe400 #FDF6EC;
-    background-attachment: fixed;
-    background-size: cover;
-    background-position-x: 30%;
+a {
     color: white;
 }
 
+button {
+    background: blue;
+}
 
-.page-container {
-    position: relative;
-    top: 75px;
-    padding-bottom: 15px;
-    width: 100vw;
-    overflow: hidden;
-    scrollbar-width: thin;
-    color: #fff;
-    border-radius: 5px;
-    min-height: 90vh;
-
-    border: 3px solid var(--mat-primary);
+body {
+    background: black;
+    color: white;
+    font-family: Verdana,sans-serif;
 }
 
 .container {
-    max-width: 1350px;
-    min-width: 320px;
-    width: 100%;
-    padding: 0 16px;
+    max-width: 44%;
+    min-width: 11%;
     margin-left: auto;
     margin-right: auto;
 }
 
-
-
 .page-min {
     background-color: #1e2125e8;
-    min-height: 80vh;
 }
 
 .hero-section {
