@@ -1,10 +1,12 @@
 {% extends 'wor/base.html' %}
+{% load static %}
 
 {% block title %}
    <title>Show Page</title>
 {% endblock %}
 
 {% block content %}
+<link rel="stylesheet" href="{% static 'wor/show_equipment.css' %}">
 <center><h1>Show Weapons</h1></center>
 <table class="table">
    <thead>

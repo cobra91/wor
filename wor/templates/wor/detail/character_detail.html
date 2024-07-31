@@ -29,7 +29,7 @@
                            <img class="type-icon" src="{% get_static_prefix %}wor/images/icons/classes/{{ character.heroclass }}.png">{{ character.heroclass }}
                         </div>
                         <div class="hero-info">
-                           <img class="type-icon" src="{% get_static_prefix %}wor/images/icons/damage-types/normal.png">normal
+                           <img class="type-icon" src="{% get_static_prefix %}wor/images/icons/damage-types/{{ character.damagetype }}.png">{{ character.damagetype }}
                         </div>
                      </div>
                      <div class="attack-range-section">
@@ -64,81 +64,6 @@
             </div>
             <div class="hero-block">
                <img class="hero-image" src="{% get_static_prefix %}wor/images/icons/heroes/busts/{{ character.name }}.png">
-               <div class="hero-stats">
-                  <table>
-                     <tr>
-                        <td>
-                           <img src="{% static 'wor/images/icons/stats/hp.png' %}">HP
-                        </td>
-                        <td>{{ character.health }}</td>
-                     </tr>
-                     <tr>
-                        <td>
-                           <img src="{% static 'wor/images/icons/stats/attack.png' %}">
-                           ATK
-                        </td>
-                        <td>
-                           {{ character.attack }}
-                        </td>
-                     </tr>
-                     <tr>
-                        <td>
-                           <img src="{% static 'wor/images/icons/stats/def.png' %}"> DEF
-                        </td>
-                        <td>
-                           {{ character.defense }}
-                        </td>
-                     </tr>
-                     <tr>
-                        <td>
-                           <img src="{% static 'wor/images/icons/stats/mRes.png' %}"> M. Res
-                        </td>
-                        <td>
-                           {{ character.magic_resistance }}
-                        </td>
-                     </tr>
-                     <tr>
-                        <td>
-                           <img src="{% static 'wor/images/icons/stats/cost.png' %}"> Cost
-                        </td>
-                        <td>
-                           {{ character.cost }}
-                        </td>
-                     </tr>
-                     <tr>
-                        <td>
-                           <img src="{% static 'wor/images/icons/stats/block.png' %}">Block
-                        </td>
-                        <td>
-                           {{ character.block }}
-                        </td>
-                     </tr>
-                     <tr>
-                        <td>
-                           <img src="{% static 'wor/images/icons/stats/revival-time.png' %}">Revival Time
-                        </td>
-                        <td>
-                           {{ character.revival_time }}
-                        </td>
-                     </tr>
-                     <tr>
-                        <td>
-                           <img src="{% static 'wor/images/icons/stats/atk-interval.png' %}">Attack Interval
-                        </td>
-                        <td>
-                           {{ character.attack_interval }}
-                        </td>
-                     </tr>
-                     <tr>
-                        <td>
-                           <img src="{% static 'wor/images/icons/stats/rage-regen-auto.png' %}">Rage Regen A.
-                        </td>
-                        <td>
-                           {{ character.rage_regen_auto }}
-                        </td>
-                     </tr>
-                  </table>
-               </div>
             </div>
          </div>
          <div style="text-align:center;margin-top:20px;">Total Attributes</div>

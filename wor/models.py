@@ -48,6 +48,18 @@ class Faction(models.Model):
         return self.faction
 
 
+class DamageType(models.Model):
+    class DamageTypeEnum(models.TextChoices):
+        PIERCING = "Piercing", _("Piercing")
+        MAGIC = "Magic", _("Magic")
+        NORMAL = "Normal", _("Normal")
+
+    dmg_type = models.CharField(default=DamageTypeEnum.NORMAL, choices=DamageTypeEnum, max_length=8)
+
+    def __str__(self):
+        return self.dmg_type
+
+
 class Attribute(models.Model):
     class AttributeEnum(models.TextChoices):
         ATQ = "atq", _("Atq")
@@ -834,6 +846,7 @@ def attack_interval_equipment(attack_interval: float, attack_speed_gear: int) ->
 class Character(models.Model):
     rarity = models.ForeignKey(Rarity, on_delete=models.CASCADE)
     heroclass = models.ForeignKey(HeroClass, on_delete=models.CASCADE)
+    damagetype = models.ForeignKey(DamageType, on_delete=models.CASCADE)
     faction = models.ManyToManyField("Faction")
     name = models.CharField(max_length=250)
     health = models.IntegerField(default=0)
@@ -849,7 +862,7 @@ class Character(models.Model):
     rage_regen_auto = models.IntegerField(default=0)
     weapon = models.ForeignKey(Weapon, on_delete=models.CASCADE, null=True, blank=True)
     chestplate = models.ForeignKey(Chestplate, on_delete=models.CASCADE, null=True, blank=True)
-    wrisband = models.ForeignKey(Wristband, on_delete=models.CASCADE, null=True, blank=True)
+    wristband = models.ForeignKey(Wristband, on_delete=models.CASCADE, null=True, blank=True)
     amulet = models.ForeignKey(Amulet, on_delete=models.CASCADE, null=True, blank=True)
     ring = models.ForeignKey(Ring, on_delete=models.CASCADE, null=True, blank=True)
 
@@ -880,7 +893,7 @@ class Character(models.Model):
             hp_gear += self.chestplate.main_stat_value
         hp_gear += hp_equipment(self.health, self.weapon)
         hp_gear += hp_equipment(self.health, self.chestplate)
-        hp_gear += hp_equipment(self.health, self.wrisband)
+        hp_gear += hp_equipment(self.health, self.wristband)
         hp_gear += hp_equipment(self.health, self.amulet)
         hp_gear += hp_equipment(self.health, self.ring)
         return int(hp_gear)
@@ -907,7 +920,7 @@ class Character(models.Model):
         if self.weapon and self.chestplate and self.weapon.set_name == self.chestplate.set_name:
             if self.weapon.set_name in (Set2pEnum.CALAMITY, Set2pEnum.WARLORD):
                 atk_gear += self.attack * 25 / 100
-        atk_gear += atk_equipment(self.attack, self.wrisband)
+        atk_gear += atk_equipment(self.attack, self.wristband)
         atk_gear += atk_equipment(self.attack, self.amulet)
         atk_gear += atk_equipment(self.attack, self.ring)
         return int(atk_gear)
@@ -929,7 +942,7 @@ class Character(models.Model):
         def_gear = 0
         def_gear += def_equipment(self.defense, self.weapon)
         def_gear += def_equipment(self.defense, self.chestplate)
-        def_gear += def_equipment(self.defense, self.wrisband)
+        def_gear += def_equipment(self.defense, self.wristband)
         def_gear += def_equipment(self.defense, self.amulet)
         def_gear += def_equipment(self.defense, self.ring)
         return int(def_gear)
@@ -951,7 +964,7 @@ class Character(models.Model):
         crit_rate_gear = 0
         crit_rate_gear += crit_rate_equipment(self.weapon)
         crit_rate_gear += crit_rate_equipment(self.chestplate)
-        crit_rate_gear += crit_rate_equipment(self.wrisband)
+        crit_rate_gear += crit_rate_equipment(self.wristband)
         crit_rate_gear += crit_rate_equipment(self.amulet)
         crit_rate_gear += crit_rate_equipment(self.ring)
         return int(crit_rate_gear)
@@ -973,7 +986,7 @@ class Character(models.Model):
         crit_dmg_gear = 0
         crit_dmg_gear += crit_dmg_equipment(self.weapon)
         crit_dmg_gear += crit_dmg_equipment(self.chestplate)
-        crit_dmg_gear += crit_dmg_equipment(self.wrisband)
+        crit_dmg_gear += crit_dmg_equipment(self.wristband)
         crit_dmg_gear += crit_dmg_equipment(self.amulet)
         crit_dmg_gear += crit_dmg_equipment(self.ring)
         return int(crit_dmg_gear)
@@ -1000,7 +1013,7 @@ class Character(models.Model):
                 crt_attack_speed_gear += 30
             if self.weapon.set_name == Set2pEnum.WHIRLWIND:
                 crt_attack_speed_gear += 75
-        crt_attack_speed_gear += attack_speed_equipment(self.wrisband)
+        crt_attack_speed_gear += attack_speed_equipment(self.wristband)
         crt_attack_speed_gear += attack_speed_equipment(self.amulet)
         crt_attack_speed_gear += attack_speed_equipment(self.ring)
         return int(crt_attack_speed_gear)
@@ -1022,7 +1035,7 @@ class Character(models.Model):
         crt_rage_regen_gear = 0
         crt_rage_regen_gear += rage_regen_equipment(self.weapon)
         crt_rage_regen_gear += rage_regen_equipment(self.chestplate)
-        crt_rage_regen_gear += rage_regen_equipment(self.wrisband)
+        crt_rage_regen_gear += rage_regen_equipment(self.wristband)
         crt_rage_regen_gear += rage_regen_equipment(self.amulet)
         crt_rage_regen_gear += rage_regen_equipment(self.ring)
         return int(crt_rage_regen_gear)
@@ -1064,7 +1077,7 @@ class Character(models.Model):
         crt_healing_effect_gear = 0
         crt_healing_effect_gear += healing_effect_equipment(self.weapon)
         crt_healing_effect_gear += healing_effect_equipment(self.chestplate)
-        crt_healing_effect_gear += healing_effect_equipment(self.wrisband)
+        crt_healing_effect_gear += healing_effect_equipment(self.wristband)
         crt_healing_effect_gear += healing_effect_equipment(self.amulet)
         crt_healing_effect_gear += healing_effect_equipment(self.ring)
         return int(crt_healing_effect_gear)

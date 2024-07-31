@@ -1,0 +1,20 @@
+form {
+    div {
+        label {
+            width: 155px;
+            display: inline-flex;
+        }
+        #id_faction {
+            height: 160px;
+        }
+        select {
+            width: 169px;
+        }
+    }
+    input[type=submit] {
+        margin-left: 7%;
+        margin-top: 15px;
+        height: 25px;
+        margin-bottom: 30px;
+    }
+}

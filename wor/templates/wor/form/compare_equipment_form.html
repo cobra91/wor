@@ -1,21 +1,25 @@
 {% extends 'wor/base.html' %}
 {% load static %}
+
 {% block title %}
-<title>Compare Equipment Form</title>
+<title>Compare Equipment</title>
 {% endblock %}
 {% block content %}
 <link rel="stylesheet" href="{% static 'wor/compare.css' %}">
 <center>
-   <h1>Compare Equipment Form</h1>
+   <h1>Compare Equipment</h1>
 </center>
 <div class="container">
    <form method="post">
       {% csrf_token %}
-      {% if character_list %}
-         {{form.character}}
-      {% else %}
-         <p>No characters are available.</p>
-      {% endif %}
+      <div class="selectChar">
+         <div>Select a Character for compare his equipment</div>
+         {% if character_list %}
+            {{ form.character }}
+         {% else %}
+            <p>No characters are available.</p>
+         {% endif %}
+      </div>
       <div class="stats_grid">
          <div></div>
          <div class="stats_grid-stat-header">Min</div>
@@ -77,6 +81,7 @@
             {{form.heal_effect_max}}
          </div>
       </div>
+      <div>Use equiped items{{ form.use_equiped_items }}</div>
       <input type="submit" value="Launch Compare">
    </form>
    {% if result_list %}
@@ -106,6 +111,8 @@
          </tr>
     {% endfor %}
    </table>
+   {% else %}
+      <p>Your character already has the best equipment available !</p>
    {% endif %}
 </div>
 {% endblock %}

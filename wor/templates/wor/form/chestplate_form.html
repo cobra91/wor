@@ -1,11 +1,13 @@
 {% extends 'wor/base.html' %}
+{% load static %}
 
 {% block title %}
-   <title>Chestplate Form</title>
+   <title>Add Chestplate</title>
 {% endblock %}
 
 {% block content %}
-<center><h1>Chestplate Form</h1></center>
+<link rel="stylesheet" href="{% static 'wor/add_form.css' %}">
+<center><h1>Add Chestplate</h1></center>
 <div class="container">
    <form action="" method="post" novalidate>
        {% csrf_token %}

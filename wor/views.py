@@ -19,13 +19,13 @@ def compare_equipment_form_view(request):
             character_equip_list = form.characterEquipList
             context = {
                 "form": form,
-                "character_list": Character.objects.order_by("-name"),
+                "character_list": Character.objects.order_by("name"),
                 "result_list": resultlist,
                 "characterEquipList": character_equip_list,
             }
             return render(request, template_name, context)
     form = CompareEquipmentForm()
-    context = {"form": form, "character_list": Character.objects.order_by("-name")}
+    context = {"form": form, "character_list": Character.objects.order_by("name")}
     return render(request, template_name, context)
 
 
@@ -34,7 +34,7 @@ class CharacterView(generic.ListView):
     context_object_name = "character_list"
 
     def get_queryset(self):
-        return Character.objects.order_by("-name")
+        return Character.objects.order_by("name")
 
 
 class CharacterDetailView(generic.DetailView):

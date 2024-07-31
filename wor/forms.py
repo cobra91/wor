@@ -102,7 +102,7 @@ def equipment_goodvalue(self, crt_character: Character) -> bool:
 
 
 class CompareEquipmentForm(forms.Form):
-    character: Character = forms.ModelChoiceField(queryset=Character.objects.all())
+    character: Character = forms.ModelChoiceField(queryset=Character.objects.all().order_by("name"))
     hp_min = forms.IntegerField(required=False, min_value=0)
     hp_max = forms.IntegerField(required=False, min_value=0)
     atk_min = forms.IntegerField(required=False, min_value=0)
@@ -119,6 +119,7 @@ class CompareEquipmentForm(forms.Form):
     rage_regen_max = forms.IntegerField(required=False, min_value=0)
     heal_effect_min = forms.IntegerField(required=False, min_value=0)
     heal_effect_max = forms.IntegerField(required=False, min_value=0)
+    use_equiped_items = forms.BooleanField(required=False)
     resultlist: list[list[object]] = []
     characterEquipList: list[Character] = []
 
@@ -126,52 +127,52 @@ class CompareEquipmentForm(forms.Form):
         self.resultlist.clear()
         self.characterEquipList.clear()
         character: Character = self.cleaned_data["character"]
-        for weapon in Weapon.objects.all():
-            for chestplate in Chestplate.objects.all():
-                for wristband in Wristband.objects.all():
-                    for amulet in Amulet.objects.all():
-                        for ring in Ring.objects.all():
-                            crtEquipment: list[object] = []
+        for weapon in Weapon.objects.all().exclude(
+            id=character.weapon.id if self.cleaned_data['use_equiped_items'] and character.weapon is not None else 0
+        ):
+            for chestplate in Chestplate.objects.all().exclude(
+                id=(
+                    character.chestplate.id
+                    if self.cleaned_data['use_equiped_items'] and character.chestplate is not None
+                    else 0
+                )
+            ):
+                for wristband in Wristband.objects.all().exclude(
+                    id=(
+                        character.wristband.id
+                        if self.cleaned_data['use_equiped_items'] and character.wristband is not None
+                        else 0
+                    )
+                ):
+                    for amulet in Amulet.objects.all().exclude(
+                        id=(
+                            character.amulet.id
+                            if self.cleaned_data['use_equiped_items'] and character.amulet is not None
+                            else 0
+                        )
+                    ):
+                        for ring in Ring.objects.all().exclude(
+                            id=(
+                                character.ring.id
+                                if self.cleaned_data['use_equiped_items'] and character.ring is not None
+                                else 0
+                            )
+                        ):
+                            crt_equipment: list[object] = []
                             crt_character = copy.deepcopy(character)
                             crt_character.weapon = weapon
                             crt_character.chestplate = chestplate
-                            crt_character.wrisband = wristband
+                            crt_character.wristband = wristband
                             crt_character.amulet = amulet
                             crt_character.ring = ring
                             if equipment_goodvalue(self, crt_character):
-                                crtEquipment.append(weapon)
-                                crtEquipment.append(chestplate)
-                                crtEquipment.append(wristband)
-                                crtEquipment.append(amulet)
-                                crtEquipment.append(ring)
+                                crt_equipment.append(weapon)
+                                crt_equipment.append(chestplate)
+                                crt_equipment.append(wristband)
+                                crt_equipment.append(amulet)
+                                crt_equipment.append(ring)
                                 self.characterEquipList.append(crt_character)
-                                self.resultlist.append(crtEquipment)
-
-        # for chestplate in Chestplate.objects.all():
-        #     if equipment_goodvalue(self, chestplate):
-        #         self.resultlist.append(chestplate)
-        #         crt_character = self.cleaned_data["character"]
-        #         crt_character.chestplate = chestplate
-        #         self.characterEquipList.append(crt_character)
-        # for wristband in Wristband.objects.all():
-        #     if equipment_goodvalue(self, wristband):
-        #         self.resultlist.append(wristband)
-        #         crt_character = self.cleaned_data["character"]
-        #         crt_character.wristband = wristband
-        #         self.characterEquipList.append(crt_character)
-        # for amulet in Amulet.objects.all():
-        #     if equipment_goodvalue(self, amulet):
-        #         self.resultlist.append(amulet)
-        #         crt_character = self.cleaned_data["character"]
-        #         crt_character.amulet = amulet
-        #         self.characterEquipList.append(crt_character)
-        # for ring in Ring.objects.all():
-        #     if equipment_goodvalue(self, ring):
-        #         self.resultlist.append(ring)
-        #         crt_character = self.cleaned_data["character"]
-        #         crt_character.ring = ring
-        #         self.characterEquipList.append(crt_character)
-
+                                self.resultlist.append(crt_equipment)
         return self.resultlist
 
 
@@ -182,6 +183,7 @@ class CharacterForm(forms.ModelForm):
             "rarity",
             "heroclass",
             "faction",
+            "damagetype",
             "name",
             "health",
             "attack",
@@ -196,7 +198,7 @@ class CharacterForm(forms.ModelForm):
             "rage_regen_auto",
             "weapon",
             "chestplate",
-            "wrisband",
+            "wristband",
             "amulet",
             "ring",
         ]
