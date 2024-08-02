@@ -4,6 +4,7 @@ from . import views
 
 app_name = "wor"
 urlpatterns = [
+    path("signup/", views.SignUpView.as_view(), name="signup"),
     path("", views.index_show_view, name="index"),
     path("compareEquipmentForm/", views.compare_equipment_form_view, name="compare_equipment_url"),
     path("characterShow/", views.CharacterView.as_view(), name="show_character_url"),

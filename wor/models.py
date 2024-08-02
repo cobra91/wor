@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -112,6 +113,7 @@ class Equipment(models.Model):
         default=Attribute.AttributeEnum.ATQ,
     )
     fourth_stat_value = models.FloatField(null=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 
     class Meta:
         abstract = True
@@ -301,9 +303,17 @@ class Set3p(models.Model):
 class Weapon(Equipment, Set2p):
     main_stat = models.CharField(max_length=16, default=Attribute.AttributeEnum.ATQ, editable=False)
 
+    @property
+    def get_model_type(self):
+        return "Weapon"
+
 
 class Chestplate(Equipment, Set2p):
     main_stat = models.CharField(max_length=16, default=Attribute.AttributeEnum.PV, editable=False)
+
+    @property
+    def get_model_type(self):
+        return "Chestplate"
 
 
 class Wristband(Equipment, Set3p):
@@ -319,6 +329,10 @@ class Wristband(Equipment, Set3p):
         default=Attribute.AttributeEnum.ATQ,
     )
 
+    @property
+    def get_model_type(self):
+        return "Wristband"
+
 
 class Amulet(Equipment, Set3p):
     override_choice = list(
@@ -333,6 +347,10 @@ class Amulet(Equipment, Set3p):
         default=Attribute.AttributeEnum.ATQ,
     )
 
+    @property
+    def get_model_type(self):
+        return "Amulet"
+
 
 class Ring(Equipment, Set3p):
     override_choice = list(
@@ -346,6 +364,10 @@ class Ring(Equipment, Set3p):
         max_length=16,
         default=Attribute.AttributeEnum.ATQ,
     )
+
+    @property
+    def get_model_type(self):
+        return "Ring"
 
 
 def hp_equipment(basehealth: int, equipment: Weapon | Chestplate | Wristband | Amulet | Ring) -> int:

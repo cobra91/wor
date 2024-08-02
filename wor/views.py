@@ -1,10 +1,25 @@
+from django.contrib.auth import get_user
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
+from django.urls import reverse_lazy
 from django.views import generic
+from django.views.generic import CreateView
 
 from .forms import AmuletForm, CharacterForm, ChestplateForm, CompareEquipmentForm, RingForm, WeaponForm, WristbandForm
 from .models import Amulet, Character, Chestplate, Ring, Weapon, Wristband
 
+resultlist: list[object] = []
 
+
+class SignUpView(CreateView):
+    form_class = UserCreationForm
+    success_url = reverse_lazy("login")
+    template_name = "wor/registration/signup.html"
+
+
+@login_required
 def index_show_view(request):
     template_name = "wor/base.html"
     return render(request, template_name)
@@ -15,15 +30,24 @@ def compare_equipment_form_view(request):
     if request.method == "POST":
         form = CompareEquipmentForm(request.POST)
         if form.is_valid():
-            resultlist: list[object] = form.compare()
-            character_equip_list = form.characterEquipList
             context = {
                 "form": form,
                 "character_list": Character.objects.order_by("name"),
-                "result_list": resultlist,
-                "characterEquipList": character_equip_list,
+                "result_list": form.compare(),
+                "characterEquipList": form.characterEquipList,
             }
             return render(request, template_name, context)
+    if request.method == "GET" and len(CompareEquipmentForm(request.GET).resultlist) > 0:
+        form = CompareEquipmentForm(request.GET)
+        context = {
+            "result": form.resultlist[int(request.GET.get("result_id"))] if request.GET.get("result_id") else None,
+            "form": form,
+            "character_list": Character.objects.order_by("name"),
+            "result_list": form.resultlist,
+            "characterEquipList": form.characterEquipList,
+        }
+        CompareEquipmentForm(request.GET).resultlist = []
+        return render(request, template_name, context)
     form = CompareEquipmentForm()
     context = {"form": form, "character_list": Character.objects.order_by("name")}
     return render(request, template_name, context)
@@ -115,35 +139,40 @@ def ring_form_view(request):
 
 
 def weapon_show_view(request):
-    weapons = Weapon.objects.all()
+    user: User = get_user(request)
+    weapons = Weapon.objects.all().filter(user_id=user.id)
     template_name = "wor/show/weapons.html"
     context = {"weapons": weapons}
     return render(request, template_name, context)
 
 
 def chestplate_show_view(request):
-    chestplates = Chestplate.objects.all()
+    user: User = get_user(request)
+    chestplates = Chestplate.objects.all().filter(user_id=user.id)
     template_name = "wor/show/chestplates.html"
     context = {"chestplates": chestplates}
     return render(request, template_name, context)
 
 
 def wristband_show_view(request):
-    wristbands = Wristband.objects.all()
+    user: User = get_user(request)
+    wristbands = Wristband.objects.all().filter(user_id=user.id)
     template_name = "wor/show/wristbands.html"
     context = {"wristbands": wristbands}
     return render(request, template_name, context)
 
 
 def amulet_show_view(request):
-    amulets = Amulet.objects.all()
+    user: User = get_user(request)
+    amulets = Amulet.objects.all().filter(user_id=user.id)
     template_name = "wor/show/amulets.html"
     context = {"amulets": amulets}
     return render(request, template_name, context)
 
 
 def ring_show_view(request):
-    rings = Ring.objects.all()
+    user: User = get_user(request)
+    rings = Ring.objects.all().filter(user_id=user.id)
     template_name = "wor/show/rings.html"
     context = {"rings": rings}
     return render(request, template_name, context)

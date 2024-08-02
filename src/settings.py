@@ -58,7 +58,7 @@ ROOT_URLCONF = "src.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / "templates"],
+        "DIRS": [BASE_DIR / "wor/templates/wor"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -131,3 +131,6 @@ INTERNAL_IPS = [
     "127.0.0.1",
     "192.168.1.85",
 ]
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'

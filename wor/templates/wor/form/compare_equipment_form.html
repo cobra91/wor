@@ -4,6 +4,7 @@
 {% block title %}
 <title>Compare Equipment</title>
 {% endblock %}
+
 {% block content %}
 <link rel="stylesheet" href="{% static 'wor/compare.css' %}">
 <center>
@@ -96,23 +97,80 @@
                <th scope="col">Spd Interval</th>
                <th scope="col">Rage Regen</th>
                <th scope="col">Heal Effect</th>
+               <th scope="col">DPS Estimate</th>
+               <th scope="col">View Equipment</th>
             </tr>
          </thead>
          {% for characterEquip in characterEquipList %}
-         <tr>
-            <td>{{ characterEquip.total_hp}}</td>
-            <td>{{ characterEquip.total_atk}}</td>
-            <td>{{ characterEquip.total_def}}</td>
-            <td>{{ characterEquip.total_crit_rate}}</td>
-            <td>{{ characterEquip.total_crit_dmg}}</td>
-            <td>{{ characterEquip.total_attack_interval}}</td>
-            <td>{{ characterEquip.total_rage_regen}}</td>
-            <td>{{ characterEquip.total_heal_effect}}</td>
-         </tr>
-    {% endfor %}
+            {% for result in result_list %}
+               {% if forloop.counter == forloop.parentloop.counter %}
+                  <tr>
+                     <td>{{ characterEquip.total_hp }}</td>
+                     <td>{{ characterEquip.total_atk }}</td>
+                     <td>{{ characterEquip.total_def }}</td>
+                     <td>{{ characterEquip.total_crit_rate }}</td>
+                     <td>{{ characterEquip.total_crit_dmg }}</td>
+                     <td>{{ characterEquip.total_attack_interval }}</td>
+                     <td>{{ characterEquip.total_rage_regen }}</td>
+                     <td>{{ characterEquip.total_heal_effect }}</td>
+                     <td>{{ totalDps }}</td>
+                     <td><button><a href="{% url 'wor:compare_equipment_url'%}?result_id={{ forloop.counter }}">View</a></button></td>
+                  </tr>
+               {% endif %}
+            {% endfor %}
+         {% endfor %}
    </table>
    {% else %}
       <p>Your character already has the best equipment available !</p>
    {% endif %}
+   {% if result %}
+    {% for equipment in result %}
+      {% if equipment.get_model_type == 'Weapon' %}
+         <h2>Weapon</h2>
+      {% elif equipment.get_model_type == 'Chestplate' %}
+         <h2>Chestplate</h2>
+      {% elif equipment.get_model_type == 'Wristband' %}
+         <h2>Wristband</h2>
+      {% elif equipment.get_model_type == 'Amulet' %}
+         <h2>Amulet</h2>
+      {% elif equipment.get_model_type == 'Ring' %}
+         <h2>Ring</h2>
+      {% endif %}
+      <table class="table">
+            <thead>
+              <tr>
+                  <th scope="col">Main stat</th>
+                  <th scope="col">Main Stat Value</th>
+                  <th scope="col">First Stat</th>
+                  <th scope="col">First Stat Value</th>
+                  <th scope="col">Second Stat</th>
+                  <th scope="col">Second Stat Value</th>
+                  <th scope="col">Third Stat</th>
+                  <th scope="col">Third Stat Value</th>
+                  <th scope="col">Fourth Stat</th>
+                  <th scope="col">Fourth Stat Value</th>
+                  <th scope="col">Set Name</th>
+                  <th scope="col">Set Bonus</th>
+              </tr>
+            </thead>
+            <tbody>
+               <tr>
+                  <td>{{equipment.main_stat}}</td>
+                  <td>{{equipment.main_stat_value}}</td>
+                  <td>{{equipment.first_stat}}</td>
+                  <td>{{equipment.first_stat_value}}</td>
+                  <td>{{equipment.second_stat}}</td>
+                  <td>{{equipment.second_stat_value}}</td>
+                  <td>{{equipment.third_stat}}</td>
+                  <td>{{equipment.third_stat_value}}</td>
+                  <td>{{equipment.fourth_stat}}</td>
+                  <td>{{equipment.fourth_stat_value}}</td>
+                  <td>{{equipment.set_name}}</td>
+                  <td>{{equipment.set_bonus}}</td>
+               </tr>
+            </tbody>
+         </table>
+    {% endfor %}
+  {% endif %}
 </div>
 {% endblock %}

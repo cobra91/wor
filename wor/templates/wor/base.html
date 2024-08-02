@@ -4,60 +4,73 @@
         <meta charset='utf-8'>
         <meta http-equiv='X-UA-Compatible' content='IE=edge'>
         {% block title %}
-        <title>Wor</title>
+            <title>Wor</title>
         {% endblock %}
         {% load static %}
         <meta name='viewport' content='width=device-width, initial-scale=1'>
         <link rel="stylesheet" href="{% static 'wor/style.css' %}">
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="/">Accueil</a>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="{% url 'wor:compare_equipment_url' %}">Compare Equipment</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="{% url 'wor:character_url' %}">Add Character</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="{% url 'wor:weapon_url' %}">Add Weapon</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="{% url 'wor:chestplate_url' %}">Add Chestplate</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="{% url 'wor:wristband_url' %}">Add Wristband</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="{% url 'wor:amulet_url' %}">Add Amulet</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="{% url 'wor:ring_url' %}">Add Rings</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'wor:show_weapon_url' %}">Show Weapons</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'wor:show_chestplate_url' %}">Show Chestplates</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'wor:show_wristband_url' %}">Show Wristbands</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'wor:show_amulet_url' %}">Show Amulets</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'wor:show_ring_url' %}">Show Rings</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'wor:show_character_url' %}">Show Characters</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-       {% block content %}
-       {% endblock %}
+        <header>
+        {% if user.is_authenticated %}
+            <form action="{% url 'logout' %}" method="post">
+                {% csrf_token %}
+                User: {{ user.get_username }}
+                <button type="submit">Log Out</button>
+            </form>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="/">Accueil</a>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{% url 'wor:compare_equipment_url' %}">Compare Equipment</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{% url 'wor:character_url' %}">Add Character</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{% url 'wor:weapon_url' %}">Add Weapon</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{% url 'wor:chestplate_url' %}">Add Chestplate</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{% url 'wor:wristband_url' %}">Add Wristband</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{% url 'wor:amulet_url' %}">Add Amulet</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{% url 'wor:ring_url' %}">Add Rings</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'wor:show_weapon_url' %}">Show Weapons</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'wor:show_chestplate_url' %}">Show Chestplates</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'wor:show_wristband_url' %}">Show Wristbands</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'wor:show_amulet_url' %}">Show Amulets</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'wor:show_ring_url' %}">Show Rings</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'wor:show_character_url' %}">Show Characters</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        {% else %}
+            <a href="{% url 'login' %}">login</a> / <a href="{% url 'wor:signup' %}">signup</a>
+        {% endif %}
+        </header>
+        <main>
+            {% block content %}
+            {% endblock %}
+        </main>
     </body>
 </html>

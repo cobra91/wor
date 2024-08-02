@@ -122,6 +122,33 @@ class CompareEquipmentForm(forms.Form):
     use_equiped_items = forms.BooleanField(required=False)
     resultlist: list[list[object]] = []
     characterEquipList: list[Character] = []
+    totalDps = forms.IntegerField(required=False, min_value=0)
+
+    # def calculate_stat_bonuses(self) {
+    #     self.accessorySet and self.accessorySet.effectedStats and self.accessorySet.effectedStats.forEach(n => {
+    #         this.addStatBonuses(self, n, "setBonusRequiredStat")
+    #     }), selskillBuff and selskillBuff.effectedStats and selskillBuff.effectedStats.forEach(n =>
+    #         {
+    #             this.addStatBonuses(self, n, "skillBuffRequiredStat")
+    #         })
+    # }
+    #
+    # def getDpsTotals(self):
+    #     self.calculate_stat_bonuses(self);
+    #     const i = self.baseAttack + self.baseAttack * (self.pantheonAttack / 100) + self.bonusAttack + this.statBonuses.attack
+    #     ,c = Math.min(self.critChance + this.statBonuses.critChance, 100) / 100
+    #     ,r = (self.critDamage + self.pantheonCritDamage + this.statBonuses.critDamage) / 100
+    #     ,g = i * (1 + (this.statBonuses.attackBoost + self.attackBonus) / 100)
+    #     ,_ = "heavy" == = self.targetEnemy.armourType and "Magic" == = self.damageType | | "light" == = self.targetEnemy.armourType and "Piercing" == = self.damageType ? this.statBonuses.damage + 20: this.statBonuses.damage
+    #     ,h = this.getDamagePerAttack(g, 1, self, self.defenceReduction, 0) * (1 + _ / 100)
+    #     ,C = this.getDamagePerAttack(g, r, self, self.defenceReduction, 1) * (1 + _ / 100)
+    #     ,S = this.getDamagePerAttack(g, r, self, self.defenceReduction, c) * (1 + _ / 100) / self.attackInterval;
+    #     self.dpsResult = {
+    #         self.nonCritDmg: h,
+    #         self.critDmg: C,
+    #         self.totalDps: S
+    #     }
+    # }
 
     def compare(self) -> list[list[object]]:
         self.resultlist.clear()

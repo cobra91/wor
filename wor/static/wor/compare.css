@@ -40,7 +40,7 @@
     padding: 5px 8px;
 }
 
-.stats_grid-stat-suggestion, .stats_grid-stat-title, .stats_grid-stat-header {
+.stats_grid-stat-title, .stats_grid-stat-header {
     font-size: 20px;
     font-weight: 400;
     color: var(--hh-primary);
@@ -50,18 +50,10 @@
     text-align: center;
 }
 
-.mat-mdc-form-field {
-    --mat-mdc-form-field-floating-label-scale: 0.75;
-    display: inline-flex;
-    flex-direction: column;
-    min-width: 0;
-    text-align: left;
-}
-
 p {
     margin-left: auto;
     margin-right: auto;
-    width: 24%;
+    width: 25%;
 }
 
 table {

@@ -1,16 +1,6 @@
 from django.contrib import admin
 
-from .models import (
-    Rarity,
-    HeroClass,
-    Faction,
-    Character,
-    Wristband,
-    Amulet,
-    Ring,
-    Weapon,
-    Chestplate,
-)
+from .models import Amulet, Character, Chestplate, Faction, HeroClass, Rarity, Ring, Weapon, Wristband
 
 
 class AttributeAdmin2P(admin.ModelAdmin):
@@ -94,8 +84,6 @@ class RingAdmin(AttributeAdmin3P):
     pass
 
 
-# admin.site.register(Question, QuestionAdmin)
-# admin.site.register(Choice)
 admin.site.register(Rarity)
 admin.site.register(HeroClass)
 admin.site.register(Faction)
