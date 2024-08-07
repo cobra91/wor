@@ -2,7 +2,7 @@ import copy
 
 from django import forms
 
-from .models import Amulet, Character, Chestplate, Ring, Weapon, Wristband
+from .models import Amulet, Character, Chestplate, Ring, Weapon, Wristband, Pantheon, Artifact, Collection, DamageType
 
 
 def equipment_goodvalue(self, crt_character: Character) -> bool:
@@ -119,79 +119,43 @@ class CompareEquipmentForm(forms.Form):
     rage_regen_max = forms.IntegerField(required=False, min_value=0)
     heal_effect_min = forms.IntegerField(required=False, min_value=0)
     heal_effect_max = forms.IntegerField(required=False, min_value=0)
-    use_equiped_items = forms.BooleanField(required=False)
+    defense_reduction = forms.IntegerField(required=False, min_value=0)
+    use_equipped_items = forms.BooleanField(required=False)
     resultlist: list[list[object]] = []
     characterEquipList: list[Character] = []
-    totalDps = forms.IntegerField(required=False, min_value=0)
-
-    # def calculate_stat_bonuses(self) {
-    #     self.accessorySet and self.accessorySet.effectedStats and self.accessorySet.effectedStats.forEach(n => {
-    #         this.addStatBonuses(self, n, "setBonusRequiredStat")
-    #     }), selskillBuff and selskillBuff.effectedStats and selskillBuff.effectedStats.forEach(n =>
-    #         {
-    #             this.addStatBonuses(self, n, "skillBuffRequiredStat")
-    #         })
-    # }
-    #
-    # def getDpsTotals(self):
-    #     self.calculate_stat_bonuses(self);
-    #     const i = self.baseAttack + self.baseAttack * (self.pantheonAttack / 100) + self.bonusAttack + this.statBonuses.attack
-    #     ,c = Math.min(self.critChance + this.statBonuses.critChance, 100) / 100
-    #     ,r = (self.critDamage + self.pantheonCritDamage + this.statBonuses.critDamage) / 100
-    #     ,g = i * (1 + (this.statBonuses.attackBoost + self.attackBonus) / 100)
-    #     ,_ = "heavy" == = self.targetEnemy.armourType and "Magic" == = self.damageType | | "light" == = self.targetEnemy.armourType and "Piercing" == = self.damageType ? this.statBonuses.damage + 20: this.statBonuses.damage
-    #     ,h = this.getDamagePerAttack(g, 1, self, self.defenceReduction, 0) * (1 + _ / 100)
-    #     ,C = this.getDamagePerAttack(g, r, self, self.defenceReduction, 1) * (1 + _ / 100)
-    #     ,S = this.getDamagePerAttack(g, r, self, self.defenceReduction, c) * (1 + _ / 100) / self.attackInterval;
-    #     self.dpsResult = {
-    #         self.nonCritDmg: h,
-    #         self.critDmg: C,
-    #         self.totalDps: S
-    #     }
-    # }
 
     def compare(self) -> list[list[object]]:
         self.resultlist.clear()
         self.characterEquipList.clear()
         character: Character = self.cleaned_data["character"]
+        weapon_equiped = Weapon.objects.all().filter(character_id__isnull=False)
+        chestplate_equiped = Chestplate.objects.all().filter(character_id__isnull=False)
+        wristband_equiped = Wristband.objects.all().filter(character_id__isnull=False)
+        amulet_equiped = Amulet.objects.all().filter(character_id__isnull=False)
+        ring_equiped = Ring.objects.all().filter(character_id__isnull=False)
         for weapon in Weapon.objects.all().exclude(
-            id=character.weapon.id if self.cleaned_data['use_equiped_items'] and character.weapon is not None else 0
+            id__in='' if self.cleaned_data['use_equipped_items'] else weapon_equiped
         ):
             for chestplate in Chestplate.objects.all().exclude(
-                id=(
-                    character.chestplate.id
-                    if self.cleaned_data['use_equiped_items'] and character.chestplate is not None
-                    else 0
-                )
+                id__in='' if self.cleaned_data['use_equipped_items'] else chestplate_equiped
             ):
                 for wristband in Wristband.objects.all().exclude(
-                    id=(
-                        character.wristband.id
-                        if self.cleaned_data['use_equiped_items'] and character.wristband is not None
-                        else 0
-                    )
+                    id__in='' if self.cleaned_data['use_equipped_items'] else wristband_equiped
                 ):
                     for amulet in Amulet.objects.all().exclude(
-                        id=(
-                            character.amulet.id
-                            if self.cleaned_data['use_equiped_items'] and character.amulet is not None
-                            else 0
-                        )
+                        id__in='' if self.cleaned_data['use_equipped_items'] else amulet_equiped
                     ):
                         for ring in Ring.objects.all().exclude(
-                            id=(
-                                character.ring.id
-                                if self.cleaned_data['use_equiped_items'] and character.ring is not None
-                                else 0
-                            )
+                            id__in='' if self.cleaned_data['use_equipped_items'] else ring_equiped
                         ):
                             crt_equipment: list[object] = []
-                            crt_character = copy.deepcopy(character)
+                            crt_character: Character = copy.deepcopy(character)
                             crt_character.weapon = weapon
                             crt_character.chestplate = chestplate
                             crt_character.wristband = wristband
                             crt_character.amulet = amulet
                             crt_character.ring = ring
+                            crt_character.defence_reduction = self.cleaned_data['defense_reduction']
                             if equipment_goodvalue(self, crt_character):
                                 crt_equipment.append(weapon)
                                 crt_equipment.append(chestplate)
@@ -222,12 +186,10 @@ class CharacterForm(forms.ModelForm):
             "attack_interval",
             "crit_dmg",
             "attack_speed",
+            "rage_regen",
             "rage_regen_auto",
-            "weapon",
-            "chestplate",
-            "wristband",
-            "amulet",
-            "ring",
+            "rage_regen_basic_atk",
+            "rage_regen_atked",
         ]
 
 
@@ -245,6 +207,7 @@ class WeaponForm(forms.ModelForm):
             "fourth_stat",
             "fourth_stat_value",
             "set_name",
+            "character",
         ]
 
 
@@ -262,6 +225,7 @@ class ChestplateForm(forms.ModelForm):
             "fourth_stat",
             "fourth_stat_value",
             "set_name",
+            "character",
         ]
 
 
@@ -280,6 +244,7 @@ class WristbandForm(forms.ModelForm):
             "fourth_stat",
             "fourth_stat_value",
             "set_name",
+            "character",
         ]
 
 
@@ -298,6 +263,7 @@ class AmuletForm(forms.ModelForm):
             "fourth_stat",
             "fourth_stat_value",
             "set_name",
+            "character",
         ]
 
 
@@ -316,4 +282,164 @@ class RingForm(forms.ModelForm):
             "fourth_stat",
             "fourth_stat_value",
             "set_name",
+            "character",
+        ]
+
+
+class PantheonForm(forms.ModelForm):
+    class Meta:
+        model = Pantheon
+        fields = [
+            "atk_bonus",
+            "hp_bonus",
+            "rage_regen",
+            "crit_dmg",
+            "healing_effect",
+            "atk_spd",
+            "def_bonus",
+            "mRes_bonus",
+            "crit_rate",
+            "ragen_regen_auto",
+        ]
+
+
+class ArtifactForm(forms.ModelForm):
+    class Meta:
+        model = Artifact
+        fields = [
+            "hp",
+            "atk",
+            "character",
+        ]
+
+
+class CollectionForm(forms.ModelForm):
+    class Meta:
+        model = Collection
+        fields = [
+            "faction",
+            "hp50",
+            "hp200_watcher",
+            "hp200_north",
+            "hp200_curse",
+            "hp200_nightmare",
+            "hp200_infernal",
+            "hp200_piercer",
+            "hp200_esoteric",
+            "hp200_chaos_dominion",
+            "hp200_arbiters",
+            "hp400",
+            "rage_regen_atked",
+            "atk50_north",
+            "atk50_curse",
+            "atk50_nightmare",
+            "atk50_infernal",
+            "atk50_piercer",
+            "atk50_esoteric",
+            "atk50_chaos_dominion",
+            "atk50_arbiters",
+            "revival_time_minus_5",
+            "rage_regen_basic_atk_1_nightmare",
+            "rage_regen_basic_atk_1_piercer",
+            "crit_rate_3",
+            "crit_dmg_5",
+            "init_rage_30",
+        ]
+
+
+class WatcherCollectionForm(forms.ModelForm):
+    class Meta:
+        model = Collection
+        fields = [
+            "faction",
+            "hp50",
+            "hp200_watcher",
+            "rage_regen_atked",
+        ]
+
+
+class NorthCollectionForm(forms.ModelForm):
+    class Meta:
+        model = Collection
+        fields = [
+            "faction",
+            "atk50_north",
+            "hp200_north",
+            "revival_time_minus_5",
+        ]
+
+
+class NightmareCollectionForm(forms.ModelForm):
+    class Meta:
+        model = Collection
+        fields = [
+            "faction",
+            "atk50_nightmare",
+            "hp200_nightmare",
+            "rage_regen_basic_atk_1_nightmare",
+        ]
+
+
+class CurseCollectionForm(forms.ModelForm):
+    class Meta:
+        model = Collection
+        fields = [
+            "faction",
+            "atk50_curse",
+            "hp200_curse",
+            "crit_rate_3",
+        ]
+
+
+class InfernalCollectionForm(forms.ModelForm):
+    class Meta:
+        model = Collection
+        fields = [
+            "faction",
+            "atk50_infernal",
+            "hp200_infernal",
+            "crit_dmg_5",
+        ]
+
+
+class PiercerCollectionForm(forms.ModelForm):
+    class Meta:
+        model = Collection
+        fields = [
+            "faction",
+            "atk50_piercer",
+            "hp200_piercer",
+            "rage_regen_basic_atk_1_piercer",
+        ]
+
+
+class EsotericCollectionForm(forms.ModelForm):
+    class Meta:
+        model = Collection
+        fields = [
+            "faction",
+            "atk50_esoteric",
+            "hp200_esoteric",
+            "init_rage_30",
+        ]
+
+
+class ChaosDominionCollectionForm(forms.ModelForm):
+    class Meta:
+        model = Collection
+        fields = [
+            "faction",
+            "atk50_chaos_dominion",
+            "hp200_chaos_dominion",
+            "hp400",
+        ]
+
+
+class ArbitersCollectionForm(forms.ModelForm):
+    class Meta:
+        model = Collection
+        fields = [
+            "faction",
+            "atk50_arbiters",
+            "hp200_arbiters",
         ]

@@ -18,48 +18,60 @@
                 User: {{ user.get_username }}
                 <button type="submit">Log Out</button>
             </form>
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="navbar-brand" href="/">Accueil</a>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="{% url 'wor:compare_equipment_url' %}">Compare Equipment</a>
+            <nav>
+                <a href="/">Accueil</a>
+                <div>
+                    <ul>
+                        <li>
+                            <a href="{% url 'wor:compare_equipment_url' %}">Compare Equipment</a>
                         </li>
-                        <li class="nav-item active">
-                            <a class="nav-link" href="{% url 'wor:character_url' %}">Add Character</a>
+                        <li>
+                            <a href="{% url 'wor:character_url' %}">Add Character</a>
                         </li>
-                        <li class="nav-item active">
-                            <a class="nav-link" href="{% url 'wor:weapon_url' %}">Add Weapon</a>
+                        <li>
+                            <a href="{% url 'wor:weapon_url' %}">Add Weapon</a>
                         </li>
-                        <li class="nav-item active">
-                            <a class="nav-link" href="{% url 'wor:chestplate_url' %}">Add Chestplate</a>
+                        <li>
+                            <a href="{% url 'wor:chestplate_url' %}">Add Chestplate</a>
                         </li>
-                        <li class="nav-item active">
-                            <a class="nav-link" href="{% url 'wor:wristband_url' %}">Add Wristband</a>
+                        <li>
+                            <a href="{% url 'wor:wristband_url' %}">Add Wristband</a>
                         </li>
-                        <li class="nav-item active">
-                            <a class="nav-link" href="{% url 'wor:amulet_url' %}">Add Amulet</a>
+                        <li>
+                            <a href="{% url 'wor:amulet_url' %}">Add Amulet</a>
                         </li>
-                        <li class="nav-item active">
-                            <a class="nav-link" href="{% url 'wor:ring_url' %}">Add Rings</a>
+                        <li>
+                            <a href="{% url 'wor:ring_url' %}">Add Rings</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'wor:show_weapon_url' %}">Show Weapons</a>
+                        <li>
+                            <a href="{% url 'wor:artifact_url' %}">Add Artifacts</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'wor:show_chestplate_url' %}">Show Chestplates</a>
+                        <li>
+                            <a href="{% url 'wor:show_weapon_url' %}">Show Weapons</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'wor:show_wristband_url' %}">Show Wristbands</a>
+                        <li>
+                            <a href="{% url 'wor:show_chestplate_url' %}">Show Chestplates</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'wor:show_amulet_url' %}">Show Amulets</a>
+                        <li>
+                            <a href="{% url 'wor:show_wristband_url' %}">Show Wristbands</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'wor:show_ring_url' %}">Show Rings</a>
+                        <li>
+                            <a href="{% url 'wor:show_amulet_url' %}">Show Amulets</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'wor:show_character_url' %}">Show Characters</a>
+                        <li>
+                            <a href="{% url 'wor:show_ring_url' %}">Show Rings</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'wor:show_character_url' %}">Show Characters</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'wor:show_pantheon_url' %}">Show Pantheon</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'wor:show_collection_url' %}">Show Collection</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'wor:show_artifact_url' %}">Show Artifacts</a>
                         </li>
                     </ul>
                 </div>

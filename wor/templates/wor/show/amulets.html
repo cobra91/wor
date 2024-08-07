@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-   <title>Show Page</title>
+   <title>Show Amulets</title>
 {% endblock %}
 
 {% block content %}
@@ -23,29 +23,35 @@
             <th scope="col">Fourth Stat Value</th>
             <th scope="col">Set Name</th>
             <th scope="col">Set Bonus</th>
+            <th scope="col">Character</th>
         </tr>
     </thead>
-   <tbody>
-   {% for amulet in amulets %}
-     <tr>
-        <td>{{amulet.main_stat}}</td>
-        <td>{{amulet.main_stat_value}}</td>
-        <td>{{amulet.first_stat}}</td>
-        <td>{{amulet.first_stat_value}}</td>
-        <td>{{amulet.second_stat}}</td>
-        <td>{{amulet.second_stat_value}}</td>
-        <td>{{amulet.third_stat}}</td>
-        <td>{{amulet.third_stat_value}}</td>
-        <td>{{amulet.fourth_stat}}</td>
-        <td>{{amulet.fourth_stat_value}}</td>
-        <td>{{amulet.set_name}}</td>
-        <td>{{amulet.set_bonus}}</td>
-       <td>
-           <button class="btn btn-warning"><a href="{% url 'wor:update_amulet_url' amulet.id %}">Update</a></button>&nbsp;&nbsp;
-           <button class="btn btn-danger"><a href="{% url 'wor:delete_amulet_url' amulet.id %}">Delete</a></button>
-       </td>
-     </tr>
-   {% endfor %}
-   </tbody>
- </table>
+    <tbody>
+        {% for amulet in amulets %}
+            <tr>
+                <td>{{amulet.main_stat}}</td>
+                <td>{{amulet.main_stat_value}}</td>
+                <td>{{amulet.first_stat}}</td>
+                <td>{{amulet.first_stat_value}}</td>
+                <td>{{amulet.second_stat}}</td>
+                <td>{{amulet.second_stat_value}}</td>
+                <td>{{amulet.third_stat}}</td>
+                <td>{{amulet.third_stat_value}}</td>
+                <td>{{amulet.fourth_stat}}</td>
+                <td>{{amulet.fourth_stat_value}}</td>
+                <td>{{amulet.set_name}}</td>
+                <td>{{amulet.set_bonus}}</td>
+                 <td>{{amulet.character}}</td>
+                <td>
+                   <button class="btn btn-warning">
+                       <a href="{% url 'wor:update_amulet_url' amulet.id %}">Update</a>
+                   </button>
+                   <button class="btn btn-danger">
+                       <a href="{% url 'wor:delete_amulet_url' amulet.id %}">Delete</a>
+                   </button>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
 {% endblock %}

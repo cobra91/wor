@@ -1,11 +1,11 @@
 form {
     div {
         label {
-            width: 155px;
+            width: 180px;
             display: inline-flex;
         }
         #id_faction {
-            height: 160px;
+            height: 175px;
         }
         select {
             width: 177px;

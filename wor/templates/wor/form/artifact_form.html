@@ -1,0 +1,18 @@
+{% extends 'wor/base.html' %}
+{% load static %}
+
+{% block title %}
+   <title>Add Artefact</title>
+{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'wor/add_form.css' %}">
+<center><h1>Add Artefact</h1></center>
+<div class="container">
+   <form action="" method="post" novalidate>
+       {% csrf_token %}
+       {{ form }}
+       <input type="submit" value="Save Artefact">
+   </form>
+</div>
+{% endblock %}

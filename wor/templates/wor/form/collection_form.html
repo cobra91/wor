@@ -1,0 +1,92 @@
+{% extends 'wor/base.html' %}
+{% load static %}
+
+{% block title %}
+   <title>Add Collection Progress</title>
+{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'wor/collection_form.css' %}">
+
+<center><h1>Add Collection Progress</h1></center>
+<div class="container">
+	<div class="tab">
+		{% for faction in factions %}
+			{% if faction|stringformat:'s' != 'Unnamable' %}
+				<button class="tablinks" onclick="openFaction(event, '{{faction}}')">{{faction}}</button>
+			{% endif %}
+		{% endfor %}
+	</div>
+	<form action="" method="post">
+		{% csrf_token %}
+		{% for faction in factions %}
+			<div id="{{faction}}" class="tabcontent">
+				<h3>{{faction}}</h3>
+				{% if faction|stringformat:'s' == 'Watcher' %}
+					<input type="text" value="{{faction}}" name="selected_faction" hidden="hidden"/>
+					<div><div class="stats_grid-stat-title">HP +50</div>{{ form.hp50 }}</div>
+					<div><div class="stats_grid-stat-title">HP +200</div>{{ form.hp200_watcher }}</div>
+					<div><div>Rage Regen Atked</div>{{ form.rage_regen_atked }}</div>
+				{% elif faction|stringformat:'s' == 'North' %}
+					<input type="text" value="{{faction}}" name="selected_faction" hidden="hidden"/>
+					<div><div class="stats_grid-stat-title">ATK +50</div>{{ form.atk50_north }}</div>
+					<div><div class="stats_grid-stat-title">HP +200</div>{{ form.hp200_north }}</div>
+					<div><div>Redeployment Time -5</div>{{ form.revival_time_minus_5 }}</div>
+				{% elif faction|stringformat:'s' == 'Nightmare' %}
+					<input type="text" value="{{faction}}" name="selected_faction" hidden="hidden"/>
+					<div><div class="stats_grid-stat-title">ATK +50</div>{{ form.atk50_nightmare }}</div>
+					<div><div class="stats_grid-stat-title">HP +200</div>{{ form.hp200_nightmare }}</div>
+					<div><div>Rage Regen (Basic ATK) +1</div>{{ form.rage_regen_basic_atk_1_nightmare }}</div>
+				{% elif faction|stringformat:'s' == 'Curse' %}
+					<input type="text" value="{{faction}}" name="selected_faction" hidden="hidden"/>
+					<div><div class="stats_grid-stat-title">ATK +50</div>{{ form.atk50_curse }}</div>
+					<div><div class="stats_grid-stat-title">HP +200</div>{{ form.hp200_curse }}</div>
+					<div><div>Crit. Rate +3%</div>{{ form.crit_rate_3 }}</div>
+				{% elif faction|stringformat:'s' == 'Infernal' %}
+					<input type="text" value="{{faction}}" name="selected_faction" hidden="hidden"/>
+					<div><div class="stats_grid-stat-title">ATK +50</div>{{ form.atk50_infernal }}</div>
+					<div><div class="stats_grid-stat-title">HP +200</div>{{ form.hp200_infernal }}</div>
+					<div><div>Crit. DMG +5%</div>{{ form.crit_dmg_5 }}</div>
+				{% elif faction|stringformat:'s' == 'Piercer' %}
+					<input type="text" value="{{faction}}" name="selected_faction" hidden="hidden"/>
+					<div><div class="stats_grid-stat-title">ATK +50</div>{{ form.atk50_piercer }}</div>
+					<div><div class="stats_grid-stat-title">HP +200</div>{{ form.hp200_piercer }}</div>
+					<div><div>Rage Regen (Basic ATK) +1</div>{{ form.rage_regen_basic_atk_1_piercer }}</div>
+				{% elif faction|stringformat:'s' == 'Esoteric' %}
+					<input type="text" value="{{faction}}" name="selected_faction" hidden="hidden"/>
+					<div><div class="stats_grid-stat-title">ATK +50</div>{{ form.atk50_esoteric }}</div>
+					<div><div class="stats_grid-stat-title">HP +200</div>{{ form.hp200_esoteric }}</div>
+					<div><div>Initial Rage +30</div>{{ form.init_rage_30 }}</div>
+				{% elif faction|stringformat:'s' == 'Chaos Dominion' %}
+					<input type="text" value="{{faction}}" name="selected_faction" hidden="hidden"/>
+					<div><div class="stats_grid-stat-title">ATK +50</div>{{ form.atk50_chaos_dominion }}</div>
+					<div><div class="stats_grid-stat-title">HP +200</div>{{ form.hp200_chaos_dominion }}</div>
+					<div><div class="stats_grid-stat-title">HP +400</div>{{ form.hp400 }}</div>
+				{% elif faction|stringformat:'s' == 'Arbiters' %}
+					<input type="text" value="{{faction}}" name="selected_faction" hidden="hidden"/>
+					<div><div class="stats_grid-stat-title">ATK +50</div>{{ form.atk50_arbiters }}</div>
+					<div><div class="stats_grid-stat-title">HP +200</div>{{ form.hp200_arbiters }}</div>
+				{% endif %}
+			</div>
+		{% endfor %}
+		<div class="submit">
+			<input type="submit" value="Save Collection Progress">
+		</div>
+	</form>
+	<script>
+	function openFaction(evt, cityName) {
+	  var i, tabcontent, tablinks;
+	  tabcontent = document.getElementsByClassName("tabcontent");
+	  for (i = 0; i < tabcontent.length; i++) {
+		tabcontent[i].style.display = "none";
+	  }
+	  tablinks = document.getElementsByClassName("tablinks");
+	  for (i = 0; i < tablinks.length; i++) {
+		tablinks[i].className = tablinks[i].className.replace(" active", "");
+	  }
+	  document.getElementById(cityName).style.display = "block";
+	  evt.currentTarget.className += " active";
+	}
+	</script>
+</div>
+{% endblock %}

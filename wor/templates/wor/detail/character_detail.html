@@ -84,8 +84,8 @@
                </td>
                <td>{{ character.health }}</td>
                <td>{{ character.hp_gear }}</td>
-               <td>0</td>
-               <td>0</td>
+               <td>{{ character.hp_artifact }}</td>
+               <td>{{ character.hp_collection }}</td>
                <td>{{ character.total_hp }}</td>
             </tr>
             <tr>
@@ -94,8 +94,8 @@
                </td>
                <td>{{ character.attack }}</td>
                <td>{{ character.atk_gear }}</td>
-               <td>0</td>
-               <td>0</td>
+               <td>{{ character.atk_artifact }}</td>
+               <td>{{ character.atk_collection }}</td>
                <td>{{ character.total_atk }}</td>
             </tr>
             <tr>
@@ -104,8 +104,8 @@
                </td>
                <td>{{ character.defense }}</td>
                <td>{{ character.def_gear }}</td>
-               <td>0</td>
-               <td>0</td>
+               <td>{{ character.def_artifact }}</td>
+               <td>{{ character.def_collection }}</td>
                <td>{{ character.total_def }}</td>
             </tr>
             <tr>
@@ -114,8 +114,8 @@
                </td>
                <td>{{ character.mRes }}</td>
                <td>{{ character.mRes_gear }}</td>
-               <td>0</td>
-               <td>0</td>
+               <td>{{ character.mRes_artifact }}</td>
+               <td>{{ character.mRes_collection }}</td>
                <td>{{ character.total_mRes }}</td>
             </tr>
             <tr>
@@ -124,8 +124,8 @@
                </td>
                <td>{{ character.cost }}</td>
                <td>{{ character.cost_gear }}</td>
-               <td>0</td>
-               <td>0</td>
+               <td>{{ character.cost_artifact }}</td>
+               <td>{{ character.cost_collection }}</td>
                <td>{{ character.total_cost }}</td>
             </tr>
             <tr>
@@ -134,8 +134,8 @@
                </td>
                <td>{{ character.block }}</td>
                <td>{{ character.block_gear }}</td>
-               <td>0</td>
-               <td>0</td>
+               <td>{{ character.block_artifact }}</td>
+               <td>{{ character.block_collection }}</td>
                <td>{{ character.total_block }}</td>
             </tr>
             <tr>
@@ -144,8 +144,8 @@
                </td>
                <td>{{ character.revival_time }}</td>
                <td>{{ character.revival_time_gear }}</td>
-               <td>0</td>
-               <td>0</td>
+               <td>{{ character.revival_time_artifact }}</td>
+               <td>{{ character.revival_time_collection }}</td>
                <td>{{ character.total_revival_time }}</td>
             </tr>
             <tr>
@@ -154,8 +154,8 @@
                </td>
                <td>{{ character.attack_interval }}</td>
                <td>{{ character.attack_interval_gear }}</td>
-               <td>0</td>
-               <td>0</td>
+               <td>{{ character.attack_interval_artifact }}</td>
+               <td>{{ character.attack_interval_collection }}</td>
                <td>{{ character.total_attack_interval }}</td>
             </tr>
             <tr>
@@ -164,8 +164,8 @@
                </td>
                <td>{{ character.attack_speed }}</td>
                <td>{{ character.attack_speed_gear }}</td>
-               <td>0</td>
-               <td>0</td>
+               <td>{{ character.attack_speed_artifact }}</td>
+               <td>{{ character.attack_speed_collection }}</td>
                <td>{{ character.total_attack_speed }}</td>
             </tr>
             <tr>
@@ -174,8 +174,8 @@
                </td>
                <td>0</td>
                <td>{{ character.crit_rate_gear }}</td>
-               <td>0</td>
-               <td>0</td>
+               <td>{{ character.crit_rate_artifact }}</td>
+               <td>{{ character.crit_rate_collection }}</td>
                <td>{{ character.total_crit_rate }}</td>
             </tr>
             <tr>
@@ -184,8 +184,8 @@
                </td>
                <td>150</td>
                <td>{{ character.crit_dmg_gear }}</td>
-               <td>0</td>
-               <td>0</td>
+               <td>{{ character.crit_dmg_gear_artifact }}</td>
+               <td>{{ character.crit_dmg_gear_collection }}</td>
                <td>{{ character.total_crit_dmg }}</td>
             </tr>
             <tr>
@@ -194,48 +194,48 @@
                </td>
                <td>0</td>
                <td>{{ character.heal_effect_gear }}</td>
-               <td>0</td>
-               <td>0</td>
+               <td>{{ character.heal_effect_artifact }}</td>
+               <td>{{ character.heal_effect_collection }}</td>
                <td>{{ character.total_heal_effect }}</td>
             </tr>
             <tr>
                <td>
                   <img src="{% static 'wor/images/icons/stats/rage-regen.png' %}" alt="missing">Rage Regen
                </td>
-               <td>0</td>
+               <td>{{ character.rage_regen }}</td>
                <td>{{ character.rage_regen_gear }}</td>
-               <td>0</td>
-               <td>0</td>
+               <td>{{ character.rage_regen_artifact }}</td>
+               <td>{{ character.rage_regen_collection }}</td>
                <td>{{ character.total_rage_regen }}</td>
             </tr>
             <tr>
                <td>
                   <img src="{% static 'wor/images/icons/stats/rage-regen-auto.png' %}" alt="missing">Rage Regen (Auto)
                </td>
-               <td>13</td>
+               <td>{{ character.rage_regen_auto }}</td>
                <td>{{ character.rage_regen_auto_gear }}</td>
-               <td>0</td>
-               <td>0</td>
+               <td>{{ character.rage_regen_auto_artifact }}</td>
+               <td>{{ character.rage_regen_auto_collection }}</td>
                <td>{{ character.total_rage_regen_auto }}</td>
             </tr>
             <tr>
                <td>
                   <img src="{% static 'wor/images/icons/stats/rage-regen-basic.png' %}" alt="missing">Rage Regen (Basic ATK)
                </td>
-               <td>10</td>
-               <td>{{ character.rage_regen_atk_gear }}</td>
-               <td>0</td>
-               <td>0</td>
-               <td>{{ character.total_rage_regen_atk }}</td>
+               <td>{{ character.rage_regen_basic_atk }}</td>
+               <td>{{ character.rage_regen_basic_atk_gear }}</td>
+               <td>{{ character.rage_regen_basic_atk_artifact }}</td>
+               <td>{{ character.rage_regen_basic_atk_collection }}</td>
+               <td>{{ character.total_rage_regen_basic_atk }}</td>
             </tr>
             <tr>
                <td>
                   <img src="{% static 'wor/images/icons/stats/rage-regen-basic.png' %}" alt="missing">Rage Regen (Attacked)
                </td>
-               <td>7</td>
+               <td>{{ character.rage_regen_atked }}</td>
                <td>{{ character.rage_regen_atked_gear }}</td>
-               <td>0</td>
-               <td>0</td>
+               <td>{{ character.rage_regen_atked_artifact }}</td>
+               <td>{{ character.rage_regen_atked_collection }}</td>
                <td>{{ character.total_rage_regen_atked }}</td>
             </tr>
          </table>

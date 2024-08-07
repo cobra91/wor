@@ -1,0 +1,54 @@
+{% extends 'wor/base.html' %}
+{% load static %}
+
+{% block title %}
+   <title>Show Pantheon</title>
+{% endblock %}
+
+{% block content %}
+    <link rel="stylesheet" href="{% static 'wor/show_equipment.css' %}">
+    <center><h1>Show Pantheon</h1></center>
+    {% if pantheon %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Atk Bonus</th>
+                <th scope="col">HP Bonus</th>
+                <th scope="col">Rage Regen</th>
+                <th scope="col">Crit. DMG</th>
+                <th scope="col">Healing Effect</th>
+                <th scope="col">Atk Spd.</th>
+                <th scope="col">Def Bonus</th>
+                <th scope="col">mRes Bonus</th>
+                <th scope="col">Crit. Rate</th>
+                <th scope="col">Rage Regen Auto</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ pantheon.atk_bonus }}</td>
+                <td>{{ pantheon.hp_bonus }}</td>
+                <td>{{ pantheon.rage_regen }}</td>
+                <td>{{ pantheon.crit_dmg }}</td>
+                <td>{{ pantheon.healing_effect }}</td>
+                <td>{{ pantheon.atk_spd }}</td>
+                <td>{{ pantheon.def_bonus }}</td>
+                <td>{{ pantheon.mRes_bonus }}</td>
+                <td>{{ pantheon.crit_rate }}</td>
+                <td>{{ pantheon.ragen_regen_auto }}</td>
+                <td>
+                    <button class="btn btn-warning">
+                        <a href="{% url 'wor:update_pantheon_url' pantheon.id %}">Update</a>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    {% else %}
+        <div>No Pantheon available for your account ! You can create it for this link
+            <button>
+                <a href="{% url 'wor:pantheon_url'%}">Add Pantheon </a>
+            </button>
+        </div>
+    {% endif %}
+{% endblock %}

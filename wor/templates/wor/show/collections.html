@@ -1,0 +1,128 @@
+{% extends 'wor/base.html' %}
+{% load static %}
+
+{% block title %}
+   <title>Show Collection Progress</title>
+{% endblock %}
+
+{% block content %}
+    <link rel="stylesheet" href="{% static 'wor/show_equipment.css' %}">
+    <center><h1>Show Collection Progress</h1></center>
+    {% if collections %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Faction</th>
+                <th scope="col">HP +50</th>
+                <th scope="col">HP +200</th>
+                <th scope="col">HP +400</th>
+                <th scope="col">Rage Regen (Attacked) +1</th>
+                <th scope="col">Atk +50</th>
+                <th scope="col">Redeployment Time -5</th>
+                <th scope="col">Rage Regen (Basic ATK) +1</th>
+                <th scope="col">Crit Rate +3%</th>
+                <th scope="col">Crit Dmg +5%</th>
+                <th scope="col">Init Rage +30</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for collection in collections %}
+                <tr>
+                    <td>{{ collection.faction }}</td>
+                    {% if collection.faction|stringformat:'s' == 'Watcher' %}
+                        <td>{{ collection.hp50 }}</td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                    {% if collection.faction|stringformat:'s' == 'Watcher' %}
+                        <td>{{ collection.hp200_watcher }}</td>
+                    {% elif collection.faction|stringformat:'s' == 'North' %}
+                        <td>{{ collection.hp200_north }}</td>
+                    {% elif collection.faction|stringformat:'s' == 'Nightmare' %}
+                        <td>{{ collection.hp200_nightmare }}</td>
+                    {% elif collection.faction|stringformat:'s' == 'Curse' %}
+                        <td>{{ collection.hp200_curse }}</td>
+                    {% elif collection.faction|stringformat:'s' == 'Infernal' %}
+                        <td>{{ collection.hp200_infernal }}</td>
+                    {% elif collection.faction|stringformat:'s' == 'Piercer' %}
+                        <td>{{ collection.hp200_piercer }}</td>
+                    {% elif collection.faction|stringformat:'s' == 'Esoteric' %}
+                        <td>{{ collection.hp200_esoteric }}</td>
+                    {% elif collection.faction|stringformat:'s' == 'Chaos Dominion' %}
+                        <td>{{ collection.hp200_chaos_dominion }}</td>
+                    {% elif collection.faction|stringformat:'s' == 'Arbiters' %}
+                        <td>{{ collection.hp200_arbiters }}</td>
+                    {% endif %}
+                    {% if collection.faction|stringformat:'s' == 'Chaos Dominion' %}
+                        <td>{{ collection.hp400 }}</td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                    {% if collection.faction|stringformat:'s' == 'Watcher' %}
+                        <td>{{ collection.rage_regen_atked }}</td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                    {% if collection.faction|stringformat:'s' == 'North' %}
+	                    <td>{{ collection.atk50_north }}</td>
+                    {% elif collection.faction|stringformat:'s' == 'Nightmare' %}
+                        <td>{{ collection.atk50_nightmare }}</td>
+                    {% elif collection.faction|stringformat:'s' == 'Curse' %}
+                        <td>{{ collection.atk50_curse }}</td>
+                    {% elif collection.faction|stringformat:'s' == 'Infernal' %}
+                        <td>{{ collection.atk50_infernal }}</td>
+                    {% elif collection.faction|stringformat:'s' == 'Piercer' %}
+                        <td>{{ collection.atk50_piercer }}</td>
+                    {% elif collection.faction|stringformat:'s' == 'Esoteric' %}
+                        <td>{{ collection.atk50_esoteric }}</td>
+                    {% elif collection.faction|stringformat:'s' == 'Chaos Dominion' %}
+                        <td>{{ collection.atk50_chaos_dominion }}</td>
+                    {% elif collection.faction|stringformat:'s' == 'Arbiters' %}
+                        <td>{{ collection.atk50_arbiters }}</td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                    {% if collection.faction|stringformat:'s' == 'North' %}
+                        <td>{{ collection.revival_time_minus_5 }}</td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                    {% if collection.faction|stringformat:'s' == 'Nightmare' %}
+                        <td>{{ collection.rage_regen_basic_atk_1_nightmare }}</td>
+                    {% elif collection.faction|stringformat:'s' == 'Piercer' %}
+                        <td>{{ collection.rage_regen_basic_atk_1_piercer }}</td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                    {% if collection.faction|stringformat:'s' == 'Curse' %}
+                        <td>{{ collection.crit_rate_3 }}</td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                    {% if collection.faction|stringformat:'s' == 'Infernal' %}
+                        <td>{{ collection.crit_dmg_5 }}</td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                    {% if collection.faction|stringformat:'s' == 'Esoteric' %}
+                        <td>{{ collection.init_rage_30 }}</td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                    <td>
+                        <button class="btn btn-warning">
+                            <a href="{% url 'wor:update_collection_url' collection.id %}">Update</a>
+                        </button>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <div>No Collections available for your account ! You can create it for this link
+            <button>
+                <a href="{% url 'wor:collection_url'%}">Add Collection</a>
+            </button>
+        </div>
+    {% endif %}
+{% endblock %}

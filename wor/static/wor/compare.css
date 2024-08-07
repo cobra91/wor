@@ -25,7 +25,7 @@
 
 .stats_grid {
     display: grid;
-    grid-template-columns: 24% 31% 31%;
+    grid-template-columns: 25% 31% 31%;
     align-items: center;
     justify-content: flex-start;
     grid-column-gap: 2%;
@@ -37,13 +37,7 @@
 }
 
 .stats_grid > div {
-    padding: 5px 8px;
-}
-
-.stats_grid-stat-title, .stats_grid-stat-header {
-    font-size: 20px;
-    font-weight: 400;
-    color: var(--hh-primary);
+    padding: 5px 0px;
 }
 
 .stats_grid-align {

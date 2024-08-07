@@ -7,8 +7,28 @@ from django.urls import reverse_lazy
 from django.views import generic
 from django.views.generic import CreateView
 
-from .forms import AmuletForm, CharacterForm, ChestplateForm, CompareEquipmentForm, RingForm, WeaponForm, WristbandForm
-from .models import Amulet, Character, Chestplate, Ring, Weapon, Wristband
+from .forms import (
+    AmuletForm,
+    CharacterForm,
+    ChestplateForm,
+    CompareEquipmentForm,
+    RingForm,
+    WeaponForm,
+    WristbandForm,
+    PantheonForm,
+    ArtifactForm,
+    CollectionForm,
+    WatcherCollectionForm,
+    NorthCollectionForm,
+    CurseCollectionForm,
+    InfernalCollectionForm,
+    NightmareCollectionForm,
+    ChaosDominionCollectionForm,
+    PiercerCollectionForm,
+    EsotericCollectionForm,
+    ArbitersCollectionForm,
+)
+from .models import Amulet, Character, Chestplate, Ring, Weapon, Wristband, Pantheon, Artifact, Collection, Faction
 
 resultlist: list[object] = []
 
@@ -82,6 +102,9 @@ def weapon_form_view(request):
     form = WeaponForm()
     if request.method == "POST":
         form = WeaponForm(request.POST)
+        user: User = get_user(request)
+        form.user = user
+        form.instance.user_id = user.id
         if form.is_valid():
             form.save()
             return redirect("wor:show_weapon_url")
@@ -94,6 +117,9 @@ def chestplate_form_view(request):
     form = ChestplateForm()
     if request.method == "POST":
         form = ChestplateForm(request.POST)
+        user: User = get_user(request)
+        form.user = user
+        form.instance.user_id = user.id
         if form.is_valid():
             form.save()
             return redirect("wor:show_chestplate_url")
@@ -106,6 +132,9 @@ def wristband_form_view(request):
     form = WristbandForm()
     if request.method == "POST":
         form = WristbandForm(request.POST)
+        user: User = get_user(request)
+        form.user = user
+        form.instance.user_id = user.id
         if form.is_valid():
             form.save()
             return redirect("wor:show_wristband_url")
@@ -118,6 +147,9 @@ def amulet_form_view(request):
     form = AmuletForm()
     if request.method == "POST":
         form = AmuletForm(request.POST)
+        user: User = get_user(request)
+        form.user = user
+        form.instance.user_id = user.id
         if form.is_valid():
             form.save()
             return redirect("wor:show_amulet_url")
@@ -130,11 +162,120 @@ def ring_form_view(request):
     form = RingForm()
     if request.method == "POST":
         form = RingForm(request.POST)
+        user: User = get_user(request)
+        form.user = user
+        form.instance.user_id = user.id
         if form.is_valid():
             form.save()
             return redirect("wor:show_ring_url")
     template_name = "wor/form/ring_form.html"
     context = {"form": form}
+    return render(request, template_name, context)
+
+
+def pantheon_form_view(request):
+    form = PantheonForm()
+    if request.method == "POST":
+        form = PantheonForm(request.POST)
+        user: User = get_user(request)
+        form.user = user
+        form.instance.user_id = user.id
+        if form.is_valid():
+            form.save()
+            return redirect("wor:show_pantheon_url")
+    template_name = "wor/form/pantheon_form.html"
+    context = {"form": form}
+    return render(request, template_name, context)
+
+
+def artifact_form_view(request):
+    form = ArtifactForm()
+    if request.method == "POST":
+        form = ArtifactForm(request.POST)
+        user: User = get_user(request)
+        form.user = user
+        form.instance.user_id = user.id
+        if form.is_valid():
+            form.save()
+            return redirect("wor:show_artifact_url")
+    template_name = "wor/form/artifact_form.html"
+    context = {"form": form}
+    return render(request, template_name, context)
+
+
+def collection_form_view(request):
+    form = CollectionForm()
+    user: User = get_user(request)
+    if request.method == "POST":
+        updated_request = request.POST.copy()
+        faction: Faction = Faction.objects.get(faction=Faction.FactionEnum.WATCHER)
+        updated_request.update({'faction': faction})
+        form = WatcherCollectionForm(updated_request)
+        form.user = user
+        form.instance.user_id = user.id
+        if form.is_valid():
+            form.save()
+        faction: Faction = Faction.objects.get(faction=Faction.FactionEnum.NORTH)
+        updated_request.update({'faction': faction})
+        form = NorthCollectionForm(updated_request)
+        form.user = user
+        form.instance.user_id = user.id
+        if form.is_valid():
+            form.save()
+        faction: Faction = Faction.objects.get(faction=Faction.FactionEnum.CURSE)
+        updated_request.update({'faction': faction})
+        form = CurseCollectionForm(updated_request)
+        form.user = user
+        form.instance.user_id = user.id
+        if form.is_valid():
+            form.save()
+        faction: Faction = Faction.objects.get(faction=Faction.FactionEnum.NIGHTMARE)
+        updated_request.update({'faction': faction})
+        form = NightmareCollectionForm(updated_request)
+        form.user = user
+        form.instance.user_id = user.id
+        if form.is_valid():
+            form.save()
+        faction: Faction = Faction.objects.get(faction=Faction.FactionEnum.INFERNAL)
+        updated_request.update({'faction': faction})
+        form = InfernalCollectionForm(updated_request)
+        form.user = user
+        form.instance.user_id = user.id
+        if form.is_valid():
+            form.save()
+        faction: Faction = Faction.objects.get(faction=Faction.FactionEnum.PIERCER)
+        updated_request.update({'faction': faction})
+        form = PiercerCollectionForm(updated_request)
+        form.user = user
+        form.instance.user_id = user.id
+        if form.is_valid():
+            form.save()
+        faction: Faction = Faction.objects.get(faction=Faction.FactionEnum.ESOTERIC)
+        updated_request.update({'faction': faction})
+        form = EsotericCollectionForm(updated_request)
+        form.user = user
+        form.instance.user_id = user.id
+        if form.is_valid():
+            form.save()
+        faction: Faction = Faction.objects.get(faction=Faction.FactionEnum.CHAOS_DOMINION)
+        updated_request.update({'faction': faction})
+        form = ChaosDominionCollectionForm(updated_request)
+        form.user = user
+        form.instance.user_id = user.id
+        if form.is_valid():
+            form.save()
+        faction: Faction = Faction.objects.get(faction=Faction.FactionEnum.ARBITERS)
+        updated_request.update({'faction': faction})
+        form = ArbitersCollectionForm(updated_request)
+        form.user = user
+        form.instance.user_id = user.id
+        if form.is_valid():
+            form.save()
+        return redirect("wor:show_collection_url")
+    template_name = "wor/form/collection_form.html"
+    factions = Faction.objects.all()
+    collections = Collection.objects.filter(user_id=user.id)
+    context = {"form": form, "factions": factions, "collections": collections}
     return render(request, template_name, context)
 
 
@@ -175,6 +316,30 @@ def ring_show_view(request):
     rings = Ring.objects.all().filter(user_id=user.id)
     template_name = "wor/show/rings.html"
     context = {"rings": rings}
+    return render(request, template_name, context)
+
+
+def pantheon_show_view(request):
+    user: User = get_user(request)
+    pantheon = Pantheon.objects.get(user_id=user.id)
+    template_name = "wor/show/pantheon.html"
+    context = {"pantheon": pantheon}
+    return render(request, template_name, context)
+
+
+def artifact_show_view(request):
+    user: User = get_user(request)
+    artifacts = Artifact.objects.all().filter(user_id=user.id)
+    template_name = "wor/show/artifacts.html"
+    context = {"artifacts": artifacts}
+    return render(request, template_name, context)
+
+
+def collection_show_view(request):
+    user: User = get_user(request)
+    collections = Collection.objects.all().filter(user_id=user.id)
+    template_name = "wor/show/collections.html"
+    context = {"collections": collections}
     return render(request, template_name, context)
 
 
@@ -244,7 +409,8 @@ def amulet_update_view(request, f_id):
 
 
 def ring_update_view(request, f_id):
-    ring = Ring.objects.get(id=f_id)
+    user: User = get_user(request)
+    ring = Ring.objects.get(user_id=user.id, id=f_id)
     if request.method == "POST":
         form = RingForm(request.POST, instance=ring)
         if form.is_valid():
@@ -253,6 +419,87 @@ def ring_update_view(request, f_id):
     template_name = "wor/form/ring_form.html"
     form = RingForm(instance=ring)
     context = {"form": form}
+    return render(request, template_name, context)
+
+
+def pantheon_update_view(request, f_id):
+    user: User = get_user(request)
+    pantheon = Pantheon.objects.get(user_id=user.id, id=f_id)
+    if request.method == "POST":
+        form = PantheonForm(request.POST, instance=pantheon)
+        if form.is_valid():
+            form.save()
+            return redirect("wor:show_pantheon_url")
+    template_name = "wor/form/pantheon_form.html"
+    form = PantheonForm(instance=pantheon)
+    context = {"form": form}
+    return render(request, template_name, context)
+
+
+def artifact_update_view(request, f_id):
+    user: User = get_user(request)
+    artifact = Artifact.objects.get(user_id=user.id, id=f_id)
+    if request.method == "POST":
+        form = ArtifactForm(request.POST, instance=artifact)
+        if form.is_valid():
+            form.save()
+            return redirect("wor:show_artifact_url")
+    template_name = "wor/form/artifact_form.html"
+    form = ArtifactForm(instance=artifact)
+    context = {"form": form}
+    return render(request, template_name, context)
+
+
+def collection_update_view(request, f_id):
+    user: User = get_user(request)
+    collections: Collection = Collection.objects.get(user_id=user.id, id=f_id)
+    factions = Faction.objects.all().filter(id=collections.faction.id)
+    if request.method == "POST":
+        updated_request = request.POST.copy()
+        if request.POST['selected_faction'] == Faction.FactionEnum.WATCHER:
+            faction: Faction = Faction.objects.get(faction=Faction.FactionEnum.WATCHER)
+            updated_request.update({'faction': faction})
+            form = WatcherCollectionForm(updated_request, instance=collections)
+        elif request.POST['selected_faction'] == Faction.FactionEnum.NORTH:
+            faction: Faction = Faction.objects.get(faction=Faction.FactionEnum.NORTH)
+            updated_request.update({'faction': faction})
+            form = NorthCollectionForm(updated_request, instance=collections)
+        elif request.POST['selected_faction'] == Faction.FactionEnum.CURSE:
+            faction: Faction = Faction.objects.get(faction=Faction.FactionEnum.CURSE)
+            updated_request.update({'faction': faction})
+            form = CurseCollectionForm(updated_request, instance=collections)
+        elif request.POST['selected_faction'] == Faction.FactionEnum.NIGHTMARE:
+            faction: Faction = Faction.objects.get(faction=Faction.FactionEnum.NIGHTMARE)
+            updated_request.update({'faction': faction})
+            form = NightmareCollectionForm(updated_request, instance=collections)
+        elif request.POST['selected_faction'] == Faction.FactionEnum.INFERNAL:
+            faction: Faction = Faction.objects.get(faction=Faction.FactionEnum.INFERNAL)
+            updated_request.update({'faction': faction})
+            form = InfernalCollectionForm(updated_request, instance=collections)
+        elif request.POST['selected_faction'] == Faction.FactionEnum.PIERCER:
+            faction: Faction = Faction.objects.get(faction=Faction.FactionEnum.PIERCER)
+            updated_request.update({'faction': faction})
+            form = PiercerCollectionForm(updated_request, instance=collections)
+        elif request.POST['selected_faction'] == Faction.FactionEnum.ESOTERIC:
+            faction: Faction = Faction.objects.get(faction=Faction.FactionEnum.ESOTERIC)
+            updated_request.update({'faction': faction})
+            form = EsotericCollectionForm(updated_request, instance=collections)
+        elif request.POST['selected_faction'] == Faction.FactionEnum.CHAOS_DOMINION:
+            faction: Faction = Faction.objects.get(faction=Faction.FactionEnum.CHAOS_DOMINION)
+            updated_request.update({'faction': faction})
+            form = ChaosDominionCollectionForm(updated_request, instance=collections)
+        elif request.POST['selected_faction'] == Faction.FactionEnum.ARBITERS:
+            faction: Faction = Faction.objects.get(faction=Faction.FactionEnum.ARBITERS)
+            updated_request.update({'faction': faction})
+            form = ArbitersCollectionForm(updated_request, instance=collections)
+        form.user = user
+        form.instance.user_id = user.id
+        if form.is_valid():
+            form.save()
+            return redirect("wor:show_collection_url")
+    template_name = "wor/form/collection_form.html"
+    form = CollectionForm(instance=collections)
+    context = {"form": form, "factions": factions, "collections": collections}
     return render(request, template_name, context)
 
 
@@ -302,6 +549,16 @@ def ring_delete_view(request, f_id):
         obj.delete()
         return redirect("wor:show_ring_url")
     template_name = "wor/delete/del_ring.html"
+    context = {"obj": obj}
+    return render(request, template_name, context)
+
+
+def artifact_delete_view(request, f_id):
+    obj = Artifact.objects.get(id=f_id)
+    if request.method == "POST":
+        obj.delete()
+        return redirect("wor:show_artifact_url")
+    template_name = "wor/delete/del_artifact.html"
     context = {"obj": obj}
     return render(request, template_name, context)
 
