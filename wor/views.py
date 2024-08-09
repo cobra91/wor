@@ -47,6 +47,7 @@ def index_show_view(request):
 
 def compare_equipment_form_view(request):
     template_name = "wor/form/compare_equipment_form.html"
+    user: User = get_user(request)
     if request.method == "POST":
         form = CompareEquipmentForm(request.POST)
         if form.is_valid():
@@ -55,6 +56,7 @@ def compare_equipment_form_view(request):
                 "character_list": Character.objects.order_by("name"),
                 "result_list": form.compare(),
                 "characterEquipList": form.characterEquipList,
+                "user_id": user.id,
             }
             return render(request, template_name, context)
     if request.method == "GET" and len(CompareEquipmentForm(request.GET).resultlist) > 0:
@@ -65,11 +67,16 @@ def compare_equipment_form_view(request):
             "character_list": Character.objects.order_by("name"),
             "result_list": form.resultlist,
             "characterEquipList": form.characterEquipList,
+            "user_id": user.id,
         }
         CompareEquipmentForm(request.GET).resultlist = []
         return render(request, template_name, context)
     form = CompareEquipmentForm()
-    context = {"form": form, "character_list": Character.objects.order_by("name")}
+    context = {
+        "form": form,
+        "character_list": Character.objects.order_by("name"),
+        "user_id": user.id,
+    }
     return render(request, template_name, context)
 
 
@@ -81,9 +88,13 @@ class CharacterView(generic.ListView):
         return Character.objects.order_by("name")
 
 
-class CharacterDetailView(generic.DetailView):
-    model = Character
+def character_detail(request, id):
+    character = Character.objects.get(id=id)
+    user: User = get_user(request)
+    character.user_id = user.id
     template_name = "wor/detail/character_detail.html"
+    context = {"character": character}
+    return render(request, template_name, context)
 
 
 def character_form_view(request):

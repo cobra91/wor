@@ -53,8 +53,30 @@
             <div>{{ form.defense_reduction }}</div>
         </div>
         <div>Use equipped items {{ form.use_equipped_items }}</div>
+        <div>Skill Buff
+            <select name="skill_buff" id="id_skill_buff" onChange="openSkillBuffInput()">
+                {% for skill_buff in form.skill_buff %}
+                    {{ skill_buff }}
+            {% endfor %}
+            </select>
+            <div id="dolo_skill_buff">{{ form.dolo_skill_buff }}</div>
+            <input type="text" value="{{ user_id }}" name="user_id" hidden="hidden"/>
+        </div>
         <input type="submit" value="Launch Compare">
     </form>
+    <script>
+        doloSkillBbuff = document.getElementById("dolo_skill_buff");
+        doloSkillBbuff.style.display = "none";
+        function openSkillBuffInput() {
+            var id_skill_buff = document.getElementById("id_skill_buff").value;
+            doloSkillBbuff = document.getElementById("dolo_skill_buff");
+            if(id_skill_buff == "Dolores") {
+                doloSkillBbuff.style.display = "block";
+            } else {
+                doloSkillBbuff.style.display = "none";
+            }
+        }
+    </script>
     {% if result_list %}
     <table>
         <thead>

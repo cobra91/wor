@@ -2,7 +2,7 @@ import copy
 
 from django import forms
 
-from .models import Amulet, Character, Chestplate, Ring, Weapon, Wristband, Pantheon, Artifact, Collection, DamageType
+from .models import Amulet, Character, Chestplate, Ring, Weapon, Wristband, Pantheon, Artifact, Collection
 
 
 def equipment_goodvalue(self, crt_character: Character) -> bool:
@@ -119,8 +119,23 @@ class CompareEquipmentForm(forms.Form):
     rage_regen_max = forms.IntegerField(required=False, min_value=0)
     heal_effect_min = forms.IntegerField(required=False, min_value=0)
     heal_effect_max = forms.IntegerField(required=False, min_value=0)
-    defense_reduction = forms.IntegerField(required=False, min_value=0)
+    defense_reduction = forms.IntegerField(required=False, min_value=0, initial=0)
     use_equipped_items = forms.BooleanField(required=False)
+    skill_buff = forms.ChoiceField(
+        required=False,
+        choices=(
+            ("", "None"),
+            ("Laurel", "Symbiotic Power (Laurel)"),
+            ("Dolores", "Graceful Dancing (Dolores)"),
+            ("Autumn", "Gold Maple's Room (Autumn)"),
+        ),
+    )
+    dolo_skill_buff = forms.IntegerField(
+        required=False,
+        min_value=0,
+        initial=0,
+        widget=forms.TextInput(attrs={'placeholder': 'Dolores Total Attack', 'type': "number"}),
+    )
     resultlist: list[list[object]] = []
     characterEquipList: list[Character] = []
 
@@ -155,7 +170,10 @@ class CompareEquipmentForm(forms.Form):
                             crt_character.wristband = wristband
                             crt_character.amulet = amulet
                             crt_character.ring = ring
-                            crt_character.defence_reduction = self.cleaned_data['defense_reduction']
+                            crt_character._defence_reduction = self.cleaned_data['defense_reduction']
+                            crt_character._skill_buff = self.cleaned_data['skill_buff']
+                            crt_character._dolo_skill_buff = self.cleaned_data['dolo_skill_buff']
+                            crt_character._user_id = self.data['user_id'] if self.data['user_id'] != '' else 0
                             if equipment_goodvalue(self, crt_character):
                                 crt_equipment.append(weapon)
                                 crt_equipment.append(chestplate)

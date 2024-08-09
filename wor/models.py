@@ -949,7 +949,7 @@ class Character(models.Model):
 
     @property
     def skill_multiplier(self) -> int:
-        return 100
+        return 120
 
     @skill_multiplier.setter
     def skill_multiplier(self, value):
@@ -962,6 +962,30 @@ class Character(models.Model):
     @defence_reduction.setter
     def defence_reduction(self, value):
         self._defence_reduction = value
+
+    @property
+    def skill_buff(self) -> str:
+        return ""
+
+    @skill_buff.setter
+    def skill_buff(self, value):
+        self._skill_buff = value
+
+    @property
+    def dolo_skill_buff(self) -> str:
+        return ""
+
+    @dolo_skill_buff.setter
+    def dolo_skill_buff(self, value):
+        self._dolo_skill_buff = value
+
+    @property
+    def user_id(self) -> str:
+        return ""
+
+    @user_id.setter
+    def user_id(self, value):
+        self._user_id = value
 
     def get_damage_per_attack(self, total_atk, ratio_crit_dmg, character, defence_reduction, ratio_crit):
         h = total_atk * (1 - 0.3) - (
@@ -980,10 +1004,21 @@ class Character(models.Model):
         # magicFlatReduction: 4826,
         # magicPercentageReduction: .3,
         # physicalPercentageReduction: .3
-        character = self
-        ratio_crit = min(character.total_crit_rate, 100) / 100
-        ratio_crit_dmg = character.total_crit_dmg / 100
-        total_akt = character.total_atk
+        character: Character = self
+        crit_rate_bonus = 0
+        crit_dmg_bonus = 0
+        atk_bonus = 0
+        if self._skill_buff == 'Autumn':
+            crit_dmg_bonus += 60
+            crit_rate_bonus += 30
+        elif self._skill_buff == 'Laurel':
+            crit_dmg_bonus += 20
+        elif self._skill_buff == 'Dolores':
+            pantheon: Pantheon = Pantheon.objects.get(user_id=self._user_id)
+            atk_bonus = 0.6 * (self._dolo_skill_buff + (pantheon.atk_bonus / 100 * 2662))
+        ratio_crit = min(character.total_crit_rate + crit_rate_bonus, 100) / 100
+        ratio_crit_dmg = (character.total_crit_dmg + crit_dmg_bonus) / 100
+        total_akt = character.total_atk + atk_bonus
         # no_crit_dmg = Decimal(self.get_damage_per_attack(total_akt, 1, character, defence_reduction, 0)).quantize(
         #    Decimal('.01'), rounding=ROUND_HALF_UP
         # )
@@ -991,7 +1026,13 @@ class Character(models.Model):
         #    self.get_damage_per_attack(total_akt, ratio_crit_dmg, character, defence_reduction, 1)
         # ).quantize(Decimal('.01'), rounding=ROUND_HALF_UP)
         return "{0:.2f}".format(
-            self.get_damage_per_attack(total_akt, ratio_crit_dmg, character, self._defence_reduction, ratio_crit)
+            self.get_damage_per_attack(
+                total_akt,
+                ratio_crit_dmg,
+                character,
+                self._defence_reduction if self._defence_reduction is not None else 0,
+                ratio_crit,
+            )
             / character.total_attack_interval
         )
 
@@ -1060,8 +1101,20 @@ class Character(models.Model):
         self.hp_collection = value
 
     @property
+    def hp_pantheon(self) -> int:
+        hp_pantheon = 0
+        if hasattr(self, "_user_id"):
+            pantheon: Pantheon = Pantheon.objects.get(user_id=self._user_id)
+            hp_pantheon += pantheon.hp_bonus / 100 * self.health
+        return int(hp_pantheon)
+
+    @hp_pantheon.setter
+    def hp_pantheon(self, value):
+        self.hp_pantheon = value
+
+    @property
     def total_hp(self) -> int:
-        return int(self.health + self.hp_gear + self.hp_artifact + self.hp_collection)
+        return int(self.health + self.hp_gear + self.hp_artifact + self.hp_collection + self.hp_pantheon)
 
     @total_hp.setter
     def total_hp(self, value):
@@ -1125,8 +1178,20 @@ class Character(models.Model):
         self.atk_collection = value
 
     @property
+    def atk_pantheon(self) -> int:
+        atk_pantheon = 0
+        if hasattr(self, "_user_id"):
+            pantheon: Pantheon = Pantheon.objects.get(user_id=self._user_id)
+            atk_pantheon += pantheon.atk_bonus / 100 * self.attack
+        return int(atk_pantheon)
+
+    @atk_pantheon.setter
+    def atk_pantheon(self, value):
+        self.atk_pantheon = value
+
+    @property
     def total_atk(self) -> int:
-        return int(self.attack + self.atk_gear + self.atk_artifact + self.atk_collection)
+        return int(self.attack + self.atk_gear + self.atk_artifact + self.atk_collection + self.atk_pantheon)
 
     @total_atk.setter
     def total_atk(self, value):
@@ -1152,8 +1217,20 @@ class Character(models.Model):
         self.def_gear = value
 
     @property
+    def def_pantheon(self) -> int:
+        def_pantheon = 0
+        if hasattr(self, "_user_id"):
+            pantheon: Pantheon = Pantheon.objects.get(user_id=self._user_id)
+            def_pantheon += pantheon.def_bonus / 100 * self.defense
+        return int(def_pantheon)
+
+    @def_pantheon.setter
+    def def_pantheon(self, value):
+        self.def_pantheon = value
+
+    @property
     def total_def(self) -> int:
-        return int(self.defense + self.def_gear)
+        return int(self.defense + self.def_gear + self.def_pantheon)
 
     @total_def.setter
     def total_def(self, value):
@@ -1250,8 +1327,20 @@ class Character(models.Model):
         self.attack_speed_gear = value
 
     @property
+    def attack_speed_pantheon(self) -> int:
+        attack_speed_pantheon = 0
+        if hasattr(self, "_user_id"):
+            pantheon: Pantheon = Pantheon.objects.get(user_id=self._user_id)
+            attack_speed_pantheon += pantheon.atk_spd
+        return int(attack_speed_pantheon)
+
+    @attack_speed_pantheon.setter
+    def attack_speed_pantheon(self, value):
+        self.attack_speed_pantheon = value
+
+    @property
     def total_attack_speed(self) -> int:
-        return self.attack_speed + self.attack_speed_gear
+        return self.attack_speed + self.attack_speed_gear + self.attack_speed_pantheon
 
     @total_attack_speed.setter
     def total_attack_speed(self, value):
@@ -1332,8 +1421,20 @@ class Character(models.Model):
         self.crit_dmg_collection = value
 
     @property
+    def crit_dmg_pantheon(self) -> int:
+        crit_dmg_pantheon = 0
+        if hasattr(self, "_user_id"):
+            pantheon: Pantheon = Pantheon.objects.get(user_id=self._user_id)
+            crit_dmg_pantheon += pantheon.crit_dmg / 100 * self.crit_dmg
+        return int(crit_dmg_pantheon)
+
+    @crit_dmg_pantheon.setter
+    def crit_dmg_pantheon(self, value):
+        self.crit_dmg_pantheon = value
+
+    @property
     def total_crit_dmg(self) -> int:
-        return int(self.crit_dmg + self.crit_dmg_gear)
+        return int(self.crit_dmg + self.crit_dmg_gear + self.crit_dmg_collection + self.crit_dmg_pantheon)
 
     @total_crit_dmg.setter
     def total_crit_dmg(self, value):
@@ -1359,8 +1460,20 @@ class Character(models.Model):
         self.heal_effect_gear = value
 
     @property
+    def heal_effect_pantheon(self) -> int:
+        heal_effect_pantheon = 0
+        if hasattr(self, "_user_id"):
+            pantheon: Pantheon = Pantheon.objects.get(user_id=self._user_id)
+            heal_effect_pantheon += pantheon.healing_effect
+        return int(heal_effect_pantheon)
+
+    @heal_effect_pantheon.setter
+    def heal_effect_pantheon(self, value):
+        self.heal_effect_pantheon = value
+
+    @property
     def total_heal_effect(self) -> int:
-        return int(self.heal_effect_gear)
+        return int(self.heal_effect_gear + self.heal_effect_pantheon)
 
     @total_heal_effect.setter
     def total_heal_effect(self, value):
@@ -1400,8 +1513,20 @@ class Character(models.Model):
         self.rage_regen_collection = value
 
     @property
+    def rage_regen_pantheon(self) -> int:
+        rage_regen_pantheon = 0
+        if hasattr(self, "_user_id"):
+            pantheon: Pantheon = Pantheon.objects.get(user_id=self._user_id)
+            rage_regen_pantheon += pantheon.rage_regen / 100 * self.rage_regen_auto
+        return int(rage_regen_pantheon)
+
+    @rage_regen_pantheon.setter
+    def rage_regen_pantheon(self, value):
+        self.rage_regen_pantheon = value
+
+    @property
     def total_rage_regen(self) -> int:
-        return int(self.rage_regen_gear)
+        return int(self.rage_regen_gear + self.rage_regen_collection + self.rage_regen_pantheon)
 
     @total_rage_regen.setter
     def total_rage_regen(self, value):

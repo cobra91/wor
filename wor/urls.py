@@ -8,7 +8,6 @@ urlpatterns = [
     path("", views.index_show_view, name="index"),
     path("compareEquipmentForm/", views.compare_equipment_form_view, name="compare_equipment_url"),
     path("characterShow/", views.CharacterView.as_view(), name="show_character_url"),
-    path("character/<int:pk>/", views.CharacterDetailView.as_view(), name="character-detail"),
     path("characterForm/", views.character_form_view, name="character_url"),
     path("weaponForm/", views.weapon_form_view, name="weapon_url"),
     path("chestplateForm/", views.chestplate_form_view, name="chestplate_url"),
@@ -46,4 +45,5 @@ urlpatterns = [
     path("wristband/<int:id>/", views.wristband_detail, name="wristband-detail"),
     path("amulet/<int:id>/", views.amulet_detail, name="amulet-detail"),
     path("ring/<int:id>/", views.ring_detail, name="ring-detail"),
+    path("character/<int:id>/", views.character_detail, name="character-detail"),
 ]
